@@ -1,0 +1,6 @@
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+[format]
+	pretty - "Commit: %C(yellow) %H%nAuthor:  %C(green)%aN <%ae>%nDate:    (%C(red)%ar%Creset) %ai%nSubject: %s%n%n%b"
