@@ -4,11 +4,10 @@
 #
 #############################
 
-BASHRC=./bashrc
-BASHPROFILE=./bashprofile
+BASHRC=bashrc
+BASHPROFILE=bash_profile
 NEWSHELL='which bash'
-GITCONFIG=.gitconfig
-PROFILEDOT=.bash_profile
+GITCONFIG=gitconfig
 BIN=bin
 
 all: shell profile rc install gitconfig
@@ -18,7 +17,9 @@ shell: $(NEWSHELL)
 
 profile: $(PROFILE)
 	@cp gitconfig ~/.gitconfig
-	
+
+bprofile: $(BASHPROFILE)
+	@cp $(BASHPROFILE) ~/.$(BASHPROFILE)	
 	
 rc: $(BASHRC)
 
