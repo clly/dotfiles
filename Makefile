@@ -8,25 +8,26 @@ BASHRC=bashrc
 BASHPROFILE=bash_profile
 NEWSHELL='which bash'
 GITCONFIG=gitconfig
-BIN=bin
+DOTGITCONFIG='~/.gitconfig'
+BINFILES := $(shell find bin -type f)
+HOMEBINFILES := $(shell find ~/bin -type f)
 
-all: shell profile rc install gitconfig
+all: $(DOTGITCONFIG) $(HOMEBINFILES)
 
 shell: $(NEWSHELL)
 	chsh -s $(SHELL)
 
-profile: $(PROFILE)
+$(DOTGITCONFIG): $(GITCONFIG)
+	@echo "Moving gitconfig to ~/.gitconfig"
 	@cp gitconfig ~/.gitconfig
 
 bprofile: $(BASHPROFILE)
+	@echo "Copying .bash_profile to home directory"
 	@cp $(BASHPROFILE) ~/.$(BASHPROFILE)	
 	
-rc: $(BASHRC)
+$(HOMEBINFILES): $(BINFILES)
+	@echo "Copying bin to ~/bin..."
+	@cp -r bin ~/
+	@chmod -R 700 ~/bin
+	@chown -R connor ~/bin
 
-bin: $(HOME)/bin/*
-	@cp $(BIN)/* ~/bin
-	@chmod -R 700 ~/$@
-	@echo "Moving binaries to $(HOME)/bin"
-
-install: $(BASHPROFILE)
-	cp $(BASHPROFILE) ~/$(PROFILEDOT)
