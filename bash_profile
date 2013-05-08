@@ -11,6 +11,9 @@ PATH=$PATH:$HOME/.local/bin:$HOME/bin
 
 export PATH
 
+# aliases
+alias python-pip=pip
+
 # Set up git bash prompt
 green=$(tput setaf 2)
 blue=$(tput setaf 4)
