@@ -8,7 +8,7 @@ BASHRC=bashrc
 BASHPROFILE=bash_profile
 NEWSHELL='which bash'
 GITCONFIG=gitconfig
-DOTGITCONFIG='~/.gitconfig'
+DOTGITCONFIG=~/.gitconfig
 BINFILES := $(shell find bin -type f)
 HOMEBINFILES := $(shell find ~/bin -type f)
 
