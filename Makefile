@@ -11,11 +11,17 @@ GITCONFIG=gitconfig
 DOTGITCONFIG=~/.gitconfig
 BINFILES := $(shell find bin -type f)
 HOMEBINFILES := $(shell find ~/bin -type f)
+DOTVIMRC=~/.vimrc
+VIMRC=vimrc
 
-all: $(DOTGITCONFIG) $(HOMEBINFILES)
+all: $(DOTGITCONFIG) $(HOMEBINFILES) $(VIMRC)
 
 shell: $(NEWSHELL)
 	chsh -s $(SHELL)
+
+$(DOTVIMRC): $(VIMRC)
+	@echo "Moving vimrc to ~/.vimrc
+	@cp vimrc ~/.vimrc
 
 $(DOTGITCONFIG): $(GITCONFIG)
 	@echo "Moving gitconfig to ~/.gitconfig"
