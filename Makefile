@@ -5,7 +5,7 @@
 #############################
 
 BASHRC=bashrc
-BASHPROFILE=bash_profile
+BASHPROFILE=~/.bash_profile
 NEWSHELL='which bash'
 GITCONFIG=gitconfig
 DOTGITCONFIG=~/.gitconfig
@@ -13,7 +13,7 @@ BINFILES := $(shell find bin -type f)
 HOMEBINFILES := $(shell find ~/bin -type f)
 VIMRC=~/.vimrc
 
-all: $(DOTGITCONFIG) $(HOMEBINFILES) $(VIMRC)
+all: $(DOTGITCONFIG) $(HOMEBINFILES) $(VIMRC) $(BASHPROFILE)
 
 shell: $(NEWSHELL)
 	chsh -s $(SHELL)
@@ -26,9 +26,9 @@ $(DOTGITCONFIG): $(GITCONFIG)
 	@echo "Moving gitconfig to ~/.gitconfig"
 	@cp gitconfig ~/.gitconfig
 
-bprofile: $(BASHPROFILE)
+$(BASHPROFILE): bash_profile
 	@echo "Copying .bash_profile to home directory"
-	@cp $(BASHPROFILE) ~/.$(BASHPROFILE)	
+	@cp bash_profile $(BASHPROFILE)	
 	
 $(HOMEBINFILES): $(BINFILES)
 	@echo "Copying bin to ~/bin..."
