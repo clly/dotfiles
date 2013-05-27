@@ -27,4 +27,4 @@ blue=$(tput setaf 4)
 bold=$(tput bold)
 red=$(tput setaf 1)
 reset=$(tput sgr0)
-PS1='\u@\[$green\]\h\[$reset\]:\w\[$blue\]$(git_ps1)\[$reset\] \$ '
+PS1='\u@\[$green\]\h\[$reset\]:\w \[$blue\]$(git_ps1)\[$reset\]\$ '
