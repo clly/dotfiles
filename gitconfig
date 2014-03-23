@@ -1,11 +1,21 @@
 [user]
-        email = connor.r.kelly@gmail.com
-        name = Connor Kelly
+    email = connor.r.kelly@gmail.com
+    name = Connor Kelly
 [color]
 	diff = auto
 	status = auto
 	branch = auto
+	ui = auto
 [core]
 	autocrlf = input
+	whitespace = trailing-space,space-before-tab
 [push]
 	default = simple
+[rerere]
+	enabled = true
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[diff]
+	renames = copies
+[merge]
+	stat = true

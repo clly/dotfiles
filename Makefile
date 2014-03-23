@@ -6,17 +6,12 @@
 
 BASHRC=bashrc
 BASHPROFILE=~/.bash_profile
-NEWSHELL='which bash'
 GITCONFIG=gitconfig
 DOTGITCONFIG=~/.gitconfig
-BINFILES := $(shell find bin -type f)
-HOMEBINFILES := $(shell find ~/bin -type f)
 VIMRC=~/.vimrc
+GITCOMPLETION=~/.git-completion.bash
 
-all: $(DOTGITCONFIG) $(HOMEBINFILES) $(VIMRC) $(BASHPROFILE)
-
-shell: $(NEWSHELL)
-	chsh -s $(SHELL)
+all: $(DOTGITCONFIG) $(VIMRC) $(BASHPROFILE) $(GITCOMPLETION)
 
 $(VIMRC): vimrc
 	@echo "Moving vimrc to ~/.vimrc"
@@ -29,10 +24,9 @@ $(DOTGITCONFIG): $(GITCONFIG)
 $(BASHPROFILE): bash_profile
 	@echo "Copying .bash_profile to home directory"
 	@cp bash_profile $(BASHPROFILE)	
-	
-$(HOMEBINFILES): $(BINFILES)
-	@echo "Copying bin to ~/bin..."
-	@cp -r bin ~/
-	@chmod -R 700 ~/bin
-	@chown -R connor ~/bin
 
+$(GITCOMPLETION): 
+	@echo "Retrieving .git-completion"
+	@curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
+
+.PHONY: $(GITCOMPLETION)
