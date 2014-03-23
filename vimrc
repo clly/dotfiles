@@ -6,5 +6,5 @@ set autoindent
 set title
 
 "" highlight whitespace at the end of a line
-highlight ExtraWhitespace ctermgb=red guigb=red
+highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
