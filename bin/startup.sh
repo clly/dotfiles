@@ -6,4 +6,4 @@ curl http://yum.puppetlabs.com/el/6/products/i386/puppetlabs-release-6-6.noarch.
 yum localinstall -y epel.rpm
 yum localinstall -y puppet.rpm
 
-yum install -y vim man wget bind-utils puppet git
+yum install -y vim man wget bind-utils puppet git fping mtr
