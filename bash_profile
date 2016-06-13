@@ -1,5 +1,7 @@
 # .bash_profile
 
+local SYSTEM=$(uname -s)
+
 # speical functions
 function git_ps1 {
     ref=$(git symbolic-ref HEAD 2> /dev/null) || return
@@ -13,16 +15,16 @@ if [ -f ~/.bashrc ]; then
 fi
 
 # Colors for OSX
-export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
-export CLICOLOR=1
+if [[ $SYSTEM == 'Darwin' ]]; then
+    export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+    export CLICOLOR=1
+fi
 
 # User specific environment and startup programs
 
 PATH=$PATH:$HOME/.local/bin:$GOPATH/bin:$HOME/bin
 
 export PATH
-
-[[ -n "$SSH_AUTH_SOCK" ]] && eval "$(ssh-agent -s)"
 
 # Set up git bash prompt
 green=$(tput setaf 2)
@@ -36,3 +38,29 @@ PS1='\u@\[$green\]\h\[$reset\]:\w \[$blue\]$(git_ps1)\[$reset\]\$ '
 [ -f $HOME/.git-completion.bash ] && source .git-completion.bash
 
 alias ll='ls -l --time-style=long-iso'
+
+gogo(){
+    local d=$1
+
+    if [[ -z $d ]]; then
+        echo "You need to specify a project name."
+        return 1
+    fi
+
+    if [[ "$d" = github* ]]; then
+        d=$(echo $d | sed 's/.*\///')
+    fi
+    d=${d%/}
+
+    # search for the project dir in the GOPATH
+    local path=( `find "${GOPATH}/src" \( -type d -o -type l \) -iname "$d"  | awk '{print length, $0;}' | sort -n | awk '{print $2}'` )
+
+    if [ "$path" == "" ] || [ "${path[*]}" == "" ]; then
+        echo "Could not find a directory named $d in $GOPATH"
+        echo "Maybe you need to 'go get' it ;)"
+        return 1
+    fi
+
+    # enter the first path found
+    cd "${path[0]}"
+}
