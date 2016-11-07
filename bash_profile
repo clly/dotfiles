@@ -1,6 +1,6 @@
 # .bash_profile
 
-local SYSTEM=$(uname -s)
+SYSTEM=$(uname -s)
 
 # speical functions
 function git_ps1 {
@@ -35,9 +35,37 @@ reset=$(tput sgr0)
 PS1='\u@\[$green\]\h\[$reset\]:\w \[$blue\]$(git_ps1)\[$reset\]\$ '
 
 # Git completion
-[ -f $HOME/.git-completion.bash ] && source .git-completion.bash
+[ -f $HOME/.git-completion.bash ] && source $HOME/.git-completion.bash
 
 alias ll='ls -l --time-style=long-iso'
+
+installgo(){
+    sudo id > /dev/null
+    local v=$1
+    if [[ -z $v ]]; then
+        echo "You need to specify a version to install"
+        return 1
+    fi
+
+    if [[ $SYSTEM == "Darwin" ]]; then
+        arch="darwin-amd64"
+    else
+        arch="linux-amd64"
+    fi
+
+    local gp="/usr/go/"
+    url="https://storage.googleapis.com/golang/go${v}.${arch}.tar.gz"
+
+    if $(curl -s -I -m 5 -XHEAD $url|grep -q "200 OK"); then
+        wget --quiet $url -O /tmp/go.tar.gz
+        tar -C /tmp -xf /tmp/go.tar.gz
+        sudo mkdir -p "/usr/go/go${v}.${arch}"
+        sudo rsync -a /tmp/go/ "/usr/go/go${v}.${arch}"
+        echo "Set GOPATH=/usr/go/go${v}.${arch}"
+    else
+        echo "Maybe this doesn't exist or curl hung. Try again"
+    fi
+}
 
 gogo(){
     local d=$1
