@@ -8,4 +8,3 @@ else
 fi
 
 export GOVERSION="1.8.1.${ARCH}"
-export DOT_SOURCE=$HOME/.dot
