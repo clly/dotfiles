@@ -1,0 +1,5 @@
+#!/bin/bash
+
+LOC=$DOT_SOURCE/env
+source $LOC/go.sh
+source $LOC/localpath.sh

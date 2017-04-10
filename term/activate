@@ -1,0 +1,6 @@
+#!/bin/bash
+
+LOC=$DOT_SOURCE/term
+source "${LOC}/completion.sh"
+source "${LOC}/git_prompt.sh"
+source "${LOC}/history.sh"
