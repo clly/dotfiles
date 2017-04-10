@@ -4,4 +4,3 @@ source varz.sh
 source $DOT_SOURCE/term/activate
 source $DOT_SOURCE/env/activate
 source $DOT_SOURCE/alias/activate
-source
