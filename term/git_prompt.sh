@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # speical functions
-function git_ps1 {
+function git_ps1() {
     ref=$(git symbolic-ref HEAD 2> /dev/null) || return
         echo "("${ref#refs/heads/}")"
 }
@@ -19,4 +19,4 @@ bold=$(tput bold)
 red=$(tput setaf 1)
 reset=$(tput sgr0)
 underline=$(tput smul)
-PS1="[ $green\h $blue\u@\l \A: $underline\w$reset ] $blue\\$\n ${bold}${red}$(git_ps1) $reset--> \[$(tput sgr0)\]"
+export PS1="[ $green\h $blue\u@\l \A: $underline\w$reset ] $blue\\$\n ${bold}${red}\$(git_ps1) $reset--> \[$(tput sgr0)\]"
