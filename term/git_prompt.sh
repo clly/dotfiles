@@ -18,4 +18,5 @@ blue=$(tput setaf 4)
 bold=$(tput bold)
 red=$(tput setaf 1)
 reset=$(tput sgr0)
-PS1='[ \h \u@\l \A: \w ] \\$\n $(git_ps1) --> \[$(tput sgr0)\]'
+underline=$(tput smul)
+PS1="[ $green\h $blue\u@\l \A: $underline\w$reset ] $blue\\$\n ${bold}${red}$(git_ps1) $reset--> \[$(tput sgr0)\]"
