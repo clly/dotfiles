@@ -3,3 +3,4 @@
 LOC=$DOT_SOURCE/alias
 source "${LOC}/alias.sh"
 source "${LOC}/go.sh"
+source "${LOC}/functions.sh"
