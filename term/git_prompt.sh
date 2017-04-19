@@ -19,4 +19,4 @@ bold=$(tput bold)
 red=$(tput setaf 1)
 reset=$(tput sgr0)
 underline=$(tput smul)
-export PS1="[ \[$green\]\h \[$blue\]\u@\l \A: \[$underline\]\w\[$reset\] ] \[$blue\]\\$\n \[${bold}\]\[${red}\]\$(git_ps1) \[$reset\]--> \[$(tput sgr0)\]"
+export PS1="[ \[$(tput setaf 2)\]\h \[$(tput setaf 4)\]\u@\l \A: \[$(tput smul)\]\w\[$(tput sgr0)\] ] \[$(tput setaf 4)\]\\$\n \[$(tput bold)\]\[$(tput setaf 1)\]\$(git_ps1) \[$(tput sgr0)\]--> \[$(tput sgr0)\]"
