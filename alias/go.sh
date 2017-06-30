@@ -17,7 +17,7 @@ installgo(){
     local gp="/usr/go/"
     url="https://storage.googleapis.com/golang/go${v}.${arch}.tar.gz"
 
-    if $(curl -s -I -m 5 -XHEAD $url|grep -q "200 OK"); then
+    if $(curl -s -I -m 5 -XHEAD $url|grep -q "200 "); then
         wget --quiet $url -O /tmp/go.tar.gz
         tar -C /tmp -xf /tmp/go.tar.gz
         sudo mkdir -p "/usr/go/go${v}.${arch}"
