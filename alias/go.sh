@@ -1,5 +1,29 @@
 #!/bin/bash
 
+
+godb() {
+    set -x
+    if [[ -z $1 ]]; then
+        local pkg=$(go list)
+    else
+        local pkg=$1
+    fi
+
+    if [[ -n $2 ]]; then
+        local output="-o $2"
+    fi
+
+    docker run --rm -it -v "$GOPATH":/go -w /go/src/$(gpr $PWD) golang go build $output -v $pkg
+    set +x
+}
+
+gocwd() {
+    p=$GOPATH
+    if [[ -n $p ]]; then
+        $d
+    fi
+}
+
 installgo(){
     sudo id > /dev/null
     local v=$1
