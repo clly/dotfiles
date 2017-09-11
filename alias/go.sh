@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+alias cover='go test -coverprofile=coverage.out && go tool cover -html=coverage.out'
 godb() {
     set -x
     if [[ -z $1 ]]; then

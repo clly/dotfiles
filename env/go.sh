@@ -1,6 +1,8 @@
 #!/bin/bash
 
-export GOROOT="/usr/go/go${GOVERSION}"
+if [[ $SYSTEM != 'Darwin' ]]; then
+    export GOROOT="/usr/go/go${GOVERSION}"
+fi
 export GOPATH=$HOME/git/go
 
 PATH=$JAVA_HOME/bin:$PATH:$GOPATH/bin:$GOROOT/bin
