@@ -11,5 +11,12 @@ if [ -n "$BASH_VERSION" ]; then
     else
         echo "Run get_dot() to get your dotfiles"
     fi
+    
+    function get_dot() {
+        cd $HOME
+        git clone git@github.com:clly/dotfiles.git .dot
+        source .dot/activate
+        cd -
+    }
 fi
 
