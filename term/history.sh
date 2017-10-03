@@ -4,3 +4,4 @@
 export HISTCONTROL=ignorespace:ignoredups:erasedups
 shopt -s histappend
 PROMPT_COMMAND='history -a;history -n;history -w;history -c;history -r'
+export HISTSIZE=1000000
