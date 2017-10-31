@@ -3,5 +3,11 @@
 export DOT_SOURCE=$HOME/.dot
 source $DOT_SOURCE/varz.sh
 source $DOT_SOURCE/term/activate
-source $DOT_SOURCE/env/activate
 source $DOT_SOURCE/alias/activate
+
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+source $DOT_SOURCE/env/activate
