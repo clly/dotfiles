@@ -1,0 +1,17 @@
+#!/bin/bash
+
+sess=$1
+if [[ -z $sess ]]; then
+    if $(tmux list-session|grep -q anonymous); then
+        exec tmux attach-session -t anonymous
+    fi
+    sess=anonymous
+fi
+
+for i in $(tmux list-session|awk '{ print $1 }'|cut -d: -f1); do
+    if [[ $sess == $i ]]; then
+        exec tmux attach-session -t $sess
+    fi
+done
+
+exec tmux new-session -s $sess
