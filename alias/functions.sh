@@ -1,8 +1,8 @@
 #!/bin/bash
 
 function update_dot() {
-    force=$1
-    if [[ -z $force ]]; then
+    local force=$1
+    if [[ -n $force ]]; then
         update_git_completion
     fi
     cd $HOME/.dot
