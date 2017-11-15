@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function update_dot() {
-    $force=$1
+    force=$1
     if [[ -z $force ]]; then
         update_git_completion
     fi
