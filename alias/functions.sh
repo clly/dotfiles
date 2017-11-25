@@ -2,10 +2,10 @@
 
 function update_dot() {
     local force=$1
+    cd $HOME/.dot
     if [[ -n $force ]]; then
         update_git_completion
     fi
-    cd $HOME/.dot
     git pull --rebase > /dev/null
     copyDotFiles
     source activate
