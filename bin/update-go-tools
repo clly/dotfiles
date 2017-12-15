@@ -6,6 +6,6 @@ tools=(
 
 for i in "${tools[@]}"; do
     echo "Updating and installing $i"
-    go get -v -u $i && go install $i
+    go get -v -u $i && go install $i/...
     echo "$i installed"
 done
