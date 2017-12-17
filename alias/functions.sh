@@ -35,3 +35,28 @@ function copyDotFiles() {
 function update_git_completion() {
     curl -s https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o git-completion.bash
 }
+
+function watchers() {
+    if [[ ! -d .idea ]]; then
+        echo "Project is not a go intellij project"
+    fi
+    mkdir -p $PWD/.idea
+    cp $HOME/.dot/statics/watcherTasks.xml $PWD/.idea/watcherTasks.xml
+    echo "Created watcher tasks for go projcet"
+}
+
+#/**
+# * Pulled from eduardo-lago.blogspot.com ram only pxeboot
+# * converts an IPv4 address to hexadecimal format completing the missing
+# * leading zero
+# *
+# * @example:
+# *   $ hxip 10.10.24.203
+# *   0A0A18CB
+# *
+# * @param $1: the IPv4 address
+# */
+hxip() {
+  ( bc | sed 's/^\([[:digit:]]\|[A-F]\)$/0\1/' | tr -d '\n' ) <<< "obase=16; ${1//./;}"
+}
+
