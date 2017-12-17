@@ -13,7 +13,7 @@ godb() {
         local output="-o $2"
     fi
 
-    docker run --rm -it -v "$GOPATH":/go -w /go/src/$(gpr $PWD) golang go build $output -v $pkg
+    docker run --rm -it -v "$GOPATH":/go -w $(gpr $PWD) golang go build $output -v $pkg
     set +x
 }
 
