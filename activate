@@ -11,3 +11,8 @@ case $- in
 esac
 
 source $DOT_SOURCE/env/activate
+
+# Source secret things (maybe aws creds. maybe not. who's to know)
+if [[ -f $HOME/.secret ]]; then
+    source $HOME/.secret
+fi
