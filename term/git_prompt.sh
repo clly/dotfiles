@@ -2,8 +2,9 @@
 
 # speical functions
 function git_ps1() {
+    email=$(git config user.email)
     ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-        echo "("${ref#refs/heads/}")"
+    echo "("${email} ${ref#refs/heads/}")"
 }
 
 # Colors for OSX
