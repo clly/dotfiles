@@ -5,6 +5,7 @@ function update_dot() {
     cd $HOME/.dot
     if [[ -n $force ]]; then
         update_git_completion
+        update_pathogen
     fi
     git pull --rebase > /dev/null
     copyDotFiles
@@ -36,6 +37,11 @@ function update_git_completion() {
     curl -s https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o git-completion.bash
 }
 
+function update_pathogen() {
+    mkdir -p ~/.vim/autoload ~/.vim/bundle
+    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+}
+
 function watchers() {
     if [[ ! -d .idea ]]; then
         echo "Project is not a go intellij project"
@@ -43,6 +49,21 @@ function watchers() {
     mkdir -p $PWD/.idea
     cp $HOME/.dot/statics/watcherTasks.xml $PWD/.idea/watcherTasks.xml
     echo "Created watcher tasks for go projcet"
+}
+
+function notify_missing_stuff() {
+    if_exists $HOME/.vimrc && echo "vimrc is missing"
+    if_exists $HOME/.tmux.conf && echo "tmux.conf is missing"
+    if_exists $HOME/.vim/autoload/pathogen.vim && echo "Pathogen is missing"
+    if_exists $HOME/.git-completion.bash && echo "git-completion.bash is missing"
+}
+
+function if_exists() {
+    if [[ -e $1 ]]; then
+        return 0
+    else
+        return 1
+    fi
 }
 
 #/**
