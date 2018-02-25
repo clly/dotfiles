@@ -2,4 +2,5 @@
 
 LOC=$DOT_SOURCE/env
 source $LOC/go.sh
+source $LOC/rust.sh
 source $LOC/localpath.sh
