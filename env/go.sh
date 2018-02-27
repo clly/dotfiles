@@ -5,5 +5,5 @@ if [[ $SYSTEM != 'Darwin' ]]; then
 fi
 export GOPATH=$HOME/go
 
-PATH=$JAVA_HOME/bin:$PATH:$GOPATH/bin:$GOROOT/bin
+PATH=$PATH:$GOPATH/bin:$GOROOT/bin
 export PATH

@@ -8,7 +8,7 @@ if [[ -d $HOME/.dot/bin ]]; then
     PATH=$PATH:$HOME/.dot/bin
 fi
 
-PATH=$PATH:$JAVA_HOME/bin:$GOPATH/bin:$HOME/bin
+PATH=$PATH:$JAVA_HOME/bin:$HOME/bin
 
 
 export PATH
