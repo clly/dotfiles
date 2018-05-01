@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function update_dot() {
+function update-dot() {
     local force=$1
     cd $HOME/.dot
     if [[ -n $force ]]; then
