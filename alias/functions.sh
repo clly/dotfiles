@@ -66,6 +66,12 @@ function if_exists() {
     fi
 }
 
+# Set vault http location environment variable for development work
+function dev-vault {
+    docker run -p 8200:8200 --name vault vault
+    export VAULT_ADDR="http://127.0.0.1:8200"
+}
+
 #/**
 # * Pulled from eduardo-lago.blogspot.com ram only pxeboot
 # * converts an IPv4 address to hexadecimal format completing the missing
