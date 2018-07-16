@@ -4,7 +4,8 @@
 function git_ps1() {
     email=$(git config user.email)
     ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-    echo "("${email} ${ref#refs/heads/}")"
+    upstream_ref_count=$(git rev-list --count HEAD..FETCH_HEAD)
+    echo "("${email} ${ref#refs/heads/} ${upstream_ref_count}")"
 }
 
 # Colors for OSX
