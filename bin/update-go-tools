@@ -7,6 +7,7 @@ tools=(
     github.com/clly/vanity
     github.com/clly/percentile
     rsc.io/goversion
+    golang.org/x/vgo
     )
 
 for i in "${tools[@]}"; do

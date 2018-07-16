@@ -5,5 +5,5 @@ if [[ $SYSTEM != 'Darwin' ]]; then
 fi
 export GOPATH=$HOME/go
 
-PATH=$PATH:$GOPATH/bin:$GOROOT/bin
+PATH=$GOROOT/bin:$PATH:$GOPATH/bin
 export PATH
