@@ -15,7 +15,7 @@ case $id in
 esac
 
 # install packages
-$pkg install -y docker.io pyton-pip neovim vlc x264 tmux
+$pkg install -y docker.io pyton-pip neovim vlc x264 tmux gnupg2
 pip install docker-compose
 usermod -G docker -a $(id -un)
 
