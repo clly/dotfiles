@@ -8,12 +8,20 @@
 [core]
 	autocrlf = input
 	whitespace = trailing-space,space-before-tab
+[pull]
+    rebase = true
+[rebase]
+    autoStash = true
 [push]
 	default = simple
 [rerere]
 	enabled = true
 [alias]
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    new-feature = "!nf() { git diff-index --quiet HEAD; if [ $? != 0 ]; then echo 'Index is dirty'; return 1; else git checkout master && git pull --quiet --rebase && git checkout -b $@ && git push -u origin $@; fi }; nf"
+    dirty = "!d() { git diff-index --quiet HEAD; if [ $? != 0 ]; then echo 'Index is dirty'; return 1; else git checkout master && git pull --rebase && git checkout -b $@; fi }; d"
+#    done = !f() { ref=$(git symbolic-ref HEAD); if [[ $? != 0 ]]; then echo "Index is dirty"; return 1; else git branch -m ${ref#refs/heads/} ${ref#refs/heads/}-done; fi }
+    closeout = "!cl() { git diff-index --quiet HEAD; if [ $? != 0 ]; then echo "Index is dirty"; return 1; else git checkout $@ && git fetch origin $@; if [ $(git rev-list --count $@..FETCH_HEAD) != 0 ]; then echo "Upstream $@ is ahead of local" return 1; fi; git checkout master && git merge $@ && git push && git branch -d $@ && git push origin :$@; fi }; cl"
 [diff]
 	renames = copies
 [merge]
