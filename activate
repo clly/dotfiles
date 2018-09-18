@@ -2,7 +2,7 @@
 
 export DOT_SOURCE=$HOME/.dot
 source $DOT_SOURCE/varz.sh
-source $DOT_SOURCE/term/activate
+source $DOT_SOURCE/env/activate
 source $DOT_SOURCE/alias/activate
 
 case $- in
@@ -10,7 +10,7 @@ case $- in
       *) return;;
 esac
 
-source $DOT_SOURCE/env/activate
+source $DOT_SOURCE/term/activate
 
 # Source secret things (maybe aws creds. maybe not. who's to know)
 if [[ -f $HOME/.secret ]]; then
