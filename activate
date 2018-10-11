@@ -16,3 +16,5 @@ source $DOT_SOURCE/term/activate
 if [[ -f $HOME/.secret ]]; then
     source $HOME/.secret
 fi
+
+#export PATH=$(dedupe_path)
