@@ -8,4 +8,4 @@ else
 fi
 
 export GIT_EDITOR="vim"
-export GOVERSION="1.10.3.${ARCH}"
+export GOVERSION="1.11.1.${ARCH}"
