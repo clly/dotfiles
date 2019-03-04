@@ -9,7 +9,6 @@ PATH=$GOROOT/bin:$PATH:$GOPATH/bin
 export PATH
 
 function goSwitch() {
-    set -x
     if [[ -z $1 ]]; then
         return 1
     fi

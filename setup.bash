@@ -25,7 +25,7 @@ if [[ $os == 'Ubuntu' ]]; then
 fi
 
 # install rust
-curl https://sh.rustup.rs -Ssf > rust-setup.sh
+#curl https://sh.rustup.rs -Ssf > rust-setup.sh
 bash rust-setup.sh
 
 # install golang

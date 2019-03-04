@@ -17,6 +17,22 @@ godb() {
     set +x
 }
 
+go-mod-build() {
+    set -x
+    if [[ -z $1 ]]; then
+        local pkg=$(go list)
+    else
+        local pkg=$1
+    fi
+
+    if [[ -n $2 ]]; then
+        local output="-o $2"
+    fi
+
+    docker run --rm -it -e GO111MODULE=on -v "$GOPATH":/go -w "/go$(trim -l $GOPATH $PWD)" golang go build $output -v $pkg
+    set +x
+}
+
 gocwd() {
     p=$GOPATH
     if [[ -n $p ]]; then

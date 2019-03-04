@@ -87,3 +87,23 @@ hxip() {
   ( bc | sed 's/^\([[:digit:]]\|[A-F]\)$/0\1/' | tr -d '\n' ) <<< "obase=16; ${1//./;}"
 }
 
+
+pgo(){
+    local d=$1
+
+    if [[ -z $d ]]; then
+        echo "You need to specify a project name."
+        return 1
+    fi
+
+    # search for the project dir in the GOPATH
+    local path=( `find "${PROJECT_DIR}" \( -type d -o -type l \) -iname "$d"  | awk '{print length, $0;}' | sort -n | awk '{print $2}'` )
+
+    if [ "$path" == "" ] || [ "${path[*]}" == "" ]; then
+        echo "Could not find a directory named $d in $PROJECT_DIR"
+        return 1
+    fi
+
+    # enter the first path found
+    cd "${path[0]}"
+}
