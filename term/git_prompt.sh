@@ -8,6 +8,12 @@ function git_ps1() {
     echo "("${email} ${ref#refs/heads/} ${upstream_ref_count}")"
 }
 
+function terraform_ps1() {
+    if [[ -f .terraform/environment ]]; then
+        cat .terraform/environment 2>/dev/null
+    fi
+}
+
 # Colors for OSX
 if [[ $SYSTEM == 'Darwin' ]]; then
     export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
@@ -24,5 +30,5 @@ if [[ $- = *i* ]]; then
     cyan=$(tput setaf 5)
     reset=$(tput sgr0)
     underline=$(tput smul)
-    export PS1="[ \[$(tput setaf 2)\]\h \[$(tput setaf 6)\]\u@\l \A: \[$(tput smul)\]\w\[$(tput sgr0)\] ] \[$(tput setaf 4)\]\\$\n \[$(tput bold)\]\[$(tput setaf 5)\]\$(git_ps1) \[$(tput sgr0)\]--> \[$(tput sgr0)\]"
+    export PS1="[ \[$(tput setaf 2)\]\h \[$(tput setaf 6)\]\u@\l \A: \[$(tput smul)\]\w\[$(tput sgr0)\] ] \[$(tput setaf 4)\]\\$\n \[$(tput bold)\]\[$(tput setaf 5)\]\$(git_ps1) \[$(tput sgr0)\]\[$(tput setaf 2)\]\$(terraform_ps1)\[$(tput sgr0)\]--> \[$(tput sgr0)\]"
 fi

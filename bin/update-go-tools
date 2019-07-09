@@ -8,6 +8,7 @@ tools=(
     github.com/clly/percentile
     rsc.io/goversion
     golang.org/x/vgo
+    github.com/gojuno/minimock/cmd/minimock
     )
 
 for i in "${tools[@]}"; do
