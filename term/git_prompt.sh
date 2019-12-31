@@ -36,5 +36,5 @@ if [[ $- = *i* ]]; then
     cyan=$(tput setaf 5)
     reset=$(tput sgr0)
     underline=$(tput smul)
-    export PS1="[ \[$(tput setaf 2)\]\h \[$(tput setaf 6)\]\u@\l \A: \[$(tput smul)\]\w\[$(tput sgr0)\] ${red}Kube context:$(kube_context)\[$(tput setaf 4) ]\]\\$\n \[$(tput bold)\]\[$(tput setaf 5)\]\$(git_ps1) \[$(tput sgr0)\]\[$(tput setaf 2)\]\$(terraform_ps1)\[$(tput sgr0)\]--> \[$(tput sgr0)\]"
+    export PS1="[ \[$(tput setaf 2)\]\h \[$(tput setaf 6)\]\u@\l \A: \[$(tput smul)\]\w\[$(tput sgr0)\] ${red}Kube context:\$(kube_context)\[$(tput setaf 4) ]\]\\$\n \[$(tput bold)\]\[$(tput setaf 5)\]\$(git_ps1) \[$(tput sgr0)\]\[$(tput setaf 2)\]\$(terraform_ps1)\[$(tput sgr0)\]--> \[$(tput sgr0)\]"
 fi
