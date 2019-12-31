@@ -1,0 +1,4 @@
+0 */4 * * * /usr/bin/rsnapshot -c $HOME/.dot/rsnapshot.conf sync && /usr/bin/rsnapshot -c $HOME/.dot/rsnapshot.conf alpha
+30 15 * * * /usr/bin/rsnapshot -c $HOME/.dot/rsnapshot.conf beta
+15 15 */7 * * /usr/bin/rsnapshot -c $HOME/.dot/rsnapshot.conf gamma
+0 15 1 * * /usr/bin/rsnapshot -c $HOME/.dot/rsnapshot.conf delta
