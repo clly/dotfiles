@@ -1,0 +1,4 @@
+---
+
+- include: get-latest-version.yml
+  when: (version == "latest")

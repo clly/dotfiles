@@ -1,0 +1,8 @@
+---
+kubectl_version: "latest"
+kubectl_bin_directory: '/usr/local/bin'
+tmp_directory: "{{ lookup('env', 'TMPDIR') | default('/tmp',true) }}"
+kubectl_owner: "root"
+kubectl_root: "root"
+kubectl_os: "linux"
+kubectl_arch: "amd64"

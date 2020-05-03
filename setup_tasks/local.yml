@@ -1,32 +1,6 @@
 - hosts: nekobasu
   become: true
   remote_user: connor
-  roles:
-    - role: fubarhouse.rust
-      become: false
-      vars:
-        rust_update: true
-        rust_install_clean: true
-        shell_profiles:
-        - .profile
-    - role: fubarhouse.golang
-      vars:
-        go_version: 1.12.6
-        GOPATH: /home/connor/go
-        GOROOT: /usr/local/go
-        GOPROXY: https://proxy.golang.org
-        GO111MODULE: "on"
-        get_get:
-          - name: mkcert
-            url: github.com/FiloSottile/mkcert
-          - name: goimports
-            url: golang.org/x/tools/cmd/goimports
-          - name: golint
-            url: golang.org/x/lint/golint
-          - name: petrify
-            url: gophers.dev/cmds/petrify/v5
-        golang_shell_profile: /home/connor/.profile
-
   tasks:
     - name: Install packages
       apt: name={{item}}
@@ -51,4 +25,11 @@
             group=connor
             groups=docker
             append=yes
-
+  roles:
+    - role: fubarhouse.rust
+      become: true
+      vars:
+        rust_update: true
+        shell_profiles:
+        - .profile
+        

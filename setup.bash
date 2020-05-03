@@ -17,7 +17,7 @@ if [[ $os == 'Ubuntu' ]]; then
 #    sudo add-apt-repository ppa:wireshark-dev/stable
     sudo apt-get update
     sudo apt-get upgrade -y
-    sudo apt-get install git
+    sudo apt-get install git docker.io
 fi
 
 # install dotfiles
@@ -27,17 +27,17 @@ else
     git clone git@github.com:clly/dotfiles.git .dot
 fi
 
-# install packages
-sudo $pkg install -y docker.io python-pip neovim vlc x264 tmux gnupg2 curl ack rsnapshot git virtualbox-qt
-sudo pip install docker-compose
 sudo usermod -G docker -a $(id -un)
+mkdir -p git/clly
+git clone git@github.com:clly/dockerfiles.git git/clly/dockerfiles
+newgrp docker <<<EOF
+source git/clly/dockerfiles/ansible/scripts.sh
+ansible-playbook -i $HOME/.dot/setup_tasks/hosts $HOME/.dot/setup_tasks/local.yml -K
+EOF
 
 # install rust
 curl https://sh.rustup.rs -Ssf > rust-setup.sh
 bash rust-setup.sh -y
-
-# install golang
-
 
 # install intellij
 if [[ ! -f /var/local/idea/bin/idea.sh ]]; then
@@ -91,9 +91,5 @@ if [[ -f $HOME/.dot/vimrc ]]; then
 fi
 # install ansible via docker
 if ! grep -q activate $HOME/.profile; then
-    echo -e "if [[ -f $HOME/.dot/activate ]]; then\n    source $HOME/.dot/activate;\nfi" >> $HOME/.profile
-fi
-
-if ! grep -q activate $HOME/.bash_profile; then
     echo -e "if [[ -f $HOME/.dot/activate ]]; then\n    source $HOME/.dot/activate;\nfi" >> $HOME/.profile
 fi
