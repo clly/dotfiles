@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ $SYSTEM != 'Darwin' ]]; then
-    export GOROOT="/usr/go/go${GOVERSION}"
+    export GOROOT="/usr/go"
 fi
 export GOPATH=$HOME/go
 
