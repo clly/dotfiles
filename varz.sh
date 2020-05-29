@@ -8,6 +8,6 @@ else
 fi
 
 export GIT_EDITOR="vim"
-export GOVERSION="1.13.5.${ARCH}"
+export GOVERSION="1.13.6.${ARCH}"
 export PROJECT_DIR="${HOME}/p"
 export DOCKER_PROJECT_DIR="${HOME}/d"

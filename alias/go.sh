@@ -43,10 +43,6 @@ gocwd() {
 installgo(){
     sudo id > /dev/null
     local v=$1
-    if [[ -z $v ]]; then
-        echo "You need to specify a version to install"
-        return 1
-    fi
 
     if [[ $SYSTEM == "Darwin" ]]; then
         arch="darwin-amd64"
@@ -54,15 +50,26 @@ installgo(){
         arch="linux-amd64"
     fi
 
+    if [[ -z $GOVERSION ]]; then
+        if [[ -z $v ]]; then
+            echo "You need to specify a version to install"
+            return 1
+        fi
+        local goversion="go${v}.${arch}"
+    else
+        local goversion="go${GOVERSION}"
+    fi
+
+
     local gp="/usr/go/"
-    url="https://storage.googleapis.com/golang/go${v}.${arch}.tar.gz"
+    url="https://storage.googleapis.com/golang/${goversion}.tar.gz"
 
     if $(curl -s -I -m 5 -XHEAD $url|grep -q "200 "); then
         wget --quiet $url -O /tmp/go.tar.gz
         tar -C /tmp -xf /tmp/go.tar.gz
-        sudo mkdir -p "/usr/go/go${v}.${arch}"
-        sudo rsync -a /tmp/go/ "/usr/go/go${v}.${arch}"
-        echo "Set GOPATH=/usr/go/go${v}.${arch}"
+        sudo mkdir -p "/usr/go/${goversion}"
+        sudo rsync -a /tmp/go/ "/usr/go/${goversion}"
+        echo "Set GOROOT=/usr/go/${goversion}"
     else
         echo "Maybe this doesn't exist or curl hung. Try again"
     fi
