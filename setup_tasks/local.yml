@@ -19,6 +19,14 @@
         - virtualbox-qt
         - yubico-piv-tool
         - libykpiv-dev
+     - name: Install docker-compose
+       pip: name=docker-compose
+     - name: Add connor to docker group
+       user: name=connor
+             group=connor
+             groups=docker
+             append=yes
+
   roles:
     - role: fubarhouse.golang
       vars:
@@ -47,19 +55,3 @@
           - name: yubikey-agent
             url: github.com/FiloSottile/yubikey-agent
         golang_shell_profile: /home/connor/.profile
-    
-    - name: Install docker-compose
-      pip: name=docker-compose
-    - name: Add connor to docker group
-      user: name=connor
-            group=connor
-            groups=docker
-            append=yes
-  roles:
-    - role: fubarhouse.rust
-      become: true
-      vars:
-        rust_update: true
-        shell_profiles:
-        - .profile
-        

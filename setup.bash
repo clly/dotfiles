@@ -93,3 +93,5 @@ fi
 if ! grep -q activate $HOME/.profile; then
     echo -e "if [[ -f $HOME/.dot/activate ]]; then\n    source $HOME/.dot/activate;\nfi" >> $HOME/.profile
 fi
+
+
