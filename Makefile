@@ -10,23 +10,52 @@ GITCONFIG=gitconfig
 DOTGITCONFIG=~/.gitconfig
 VIMRC=~/.vimrc
 GITCOMPLETION=~/.git-completion.bash
+SCRIPTDIR=~/bin/
+SCRIPTDEPDIR=bin/
+SCRIPTDEPS=$(wildcard bin/*)
+SCRIPTS=$(wildcard ~/bin/*)
 
-all: $(DOTGITCONFIG) $(VIMRC) $(BASHPROFILE) $(GITCOMPLETION)
+COPY=cp
+
+all: $(DOTGITCONFIG) $(VIMRC) $(BASHPROFILE) $(GITCOMPLETION) $(SCRIPTS)
 
 $(VIMRC): vimrc
 	@echo "Moving vimrc to ~/.vimrc"
-	@cp vimrc ~/.vimrc
+	$(COPY) vimrc ~/.vimrc
 
 $(DOTGITCONFIG): $(GITCONFIG)
 	@echo "Moving gitconfig to ~/.gitconfig"
-	@cp gitconfig ~/.gitconfig
+	$(COPY) gitconfig ~/.gitconfig
 
 $(BASHPROFILE): bash_profile
 	@echo "Copying .bash_profile to home directory"
-	@cp bash_profile $(BASHPROFILE)	
+	$(COPY) bash_profile $(BASHPROFILE)	
+
+
 
 $(GITCOMPLETION): 
 	@echo "Retrieving .git-completion"
 	@curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
 
+$(SCRIPTS) : $(SCRIPTDEPS)
+	$(COPY) -r $(SCRIPTDEPDIR)* $(SCRIPTDIR)
+
+
+bin/minikube:
+	@curl -sLo bin/minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64  && chmod +x bin/minikube
+	@echo "Minikube installed at ~/bin/minikube"
+
+bin/kubectl:
+# install kubectl
+	@curl -Lo bin/kubectl https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl && chmod +x bin/kubectl
+	@echo "Kubectl installed at ~/bin/kubectl"
+
+.PHONY: update-bins
+update-bins: bin/minikube bin/kubectl
+
 .PHONY: $(GITCOMPLETION)
+
+.PHONY: testvars
+testvars:
+	@echo $(SCRIPTS)
+	@echo $(SCRIPTDEPS)
