@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+remoteDefault=$(git symbolic-ref --short refs/remotes/origin/HEAD)
+if [[ $(git branch --show-current)  == ${remoteDefault#origin/} ]]; then
+    if [[ ! $(git config branch.${remoteDefault#origin/}.checkSync) == "false" ]]; then
+        echo -n "You're syncing with the master branch. Are you sure? (Y/n) "
+        read continueVar
+        if ! [[ $continueVar =~ ^[yY] ]]; then
+            echo "Not syncing"
+            exit
+        fi
+    else
+        echo -n "branch.${remoteDefault#origin/}.checkSync is false. Syncing branch"
+    fi
+fi
+
+git pull --rebase
+git push
