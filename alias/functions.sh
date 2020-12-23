@@ -137,3 +137,6 @@ rvault() {
     VAULT_TOKEN=$VAULT_TOKEN "$@"
 }
 
+compact_prompt() {
+    export STARSHIP_CONFIG=~/.dot/starship-compact.toml
+}

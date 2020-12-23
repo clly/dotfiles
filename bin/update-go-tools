@@ -9,6 +9,7 @@ tools=(
     rsc.io/goversion
     golang.org/x/vgo
     github.com/gojuno/minimock/cmd/minimock
+    github.com/tomnomnom/gron
     )
 
 for i in "${tools[@]}"; do

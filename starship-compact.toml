@@ -1,0 +1,36 @@
+# Don't print new line at start of prompt
+add_newline = true
+
+[directory]
+trunaction_length = 3
+truncation_symbol = "./"
+
+[time]
+disabled = false
+
+[hostname]
+ssh_only = false
+disabled = false
+format= "on [$hostname](red) "
+
+[username]
+show_always = true
+
+[character]
+success_symbol = "[➜](bold green)"
+
+[kubernetes]
+format = 'on [⛵ $context \($namespace\)](dimmed green) '
+disabled = false
+
+[golang]
+format = "via [ $version]"
+
+[git_state]
+format = '[\($state( $progress_current of $progress_total)\)]($style) '
+cherry_pick = "[🍒 PICKING](bold red)"
+
+[git_branch]
+symbol = "🌱 "
+truncation_length = 10
+truncation_symbol = ".."

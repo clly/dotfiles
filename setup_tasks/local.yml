@@ -19,6 +19,7 @@
         - virtualbox-qt
         - yubico-piv-tool
         - libykpiv-dev
+        - libpcsclite-dev
      - name: Install docker-compose
        pip: name=docker-compose
      - name: Add connor to docker group
