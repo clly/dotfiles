@@ -2,6 +2,8 @@
 
 if [[ $SYSTEM != 'Darwin' ]]; then
     export GOROOT="/usr/go/go${GOVERSION}"
+else
+    export GOROOT=/usr/go/go$GOVERSION
 fi
 export GOPATH=$HOME/go
 

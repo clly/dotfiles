@@ -13,3 +13,14 @@ function minikube_svc() {
 
     kubectl get svc $svc -o json | jq -r .spec.clusterIP
 }
+
+function kctx() {
+    local ctx=$1
+    shift
+    if [[ -z $ctx ]]; then
+        echo "Empty context"
+        return 1
+    fi
+
+    kubectl --context $1 $@
+}
