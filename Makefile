@@ -14,6 +14,8 @@ SCRIPTDIR=~/bin/
 SCRIPTDEPDIR=bin/
 SCRIPTDEPS=$(wildcard bin/*)
 SCRIPTS=$(wildcard ~/bin/*)
+TFENVSCRIPTS=$(wildcard tfenv/bin/*)
+TFENVTARGET=$(TFENVSCRIPTS:tfenv/%=%)
 
 COPY=cp
 
@@ -52,6 +54,15 @@ bin/kubectl:
 
 .PHONY: update-bins
 update-bins: bin/minikube bin/kubectl
+
+.PHONY: terraform
+terraform: $(TFENVTARGET)
+
+$(TFENVTARGET): $(TFENVSCRIPTS)
+	@ln -s ../tfenv/$@ $@
+
+#$(TFENVTARGET): $(TFENVSCRIPTS)
+#	echo $(COPY) $? bin/
 
 .PHONY: $(GITCOMPLETION)
 
