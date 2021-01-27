@@ -24,7 +24,7 @@ format = 'on [⛵ $context \($namespace\)](dimmed green) '
 disabled = false
 
 [golang]
-format = "via [ $version]"
+#format = "via [ $version]"
 
 [git_state]
 format = '[\($state( $progress_current of $progress_total)\)]($style) '
