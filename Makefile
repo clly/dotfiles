@@ -8,7 +8,7 @@ BASHRC=bashrc
 BASHPROFILE=~/.bash_profile
 GITCONFIG=gitconfig
 DOTGITCONFIG=~/.gitconfig
-VIMRC=~/.vimrc
+VIMRC=~/.config/nvim/init.vim
 GITCOMPLETION=~/.git-completion.bash
 SCRIPTDIR=~/bin/
 SCRIPTDEPDIR=bin/
@@ -22,8 +22,9 @@ COPY=cp
 all: $(DOTGITCONFIG) $(VIMRC) $(BASHPROFILE) $(GITCOMPLETION) $(SCRIPTS)
 
 $(VIMRC): vimrc
-	@echo "Moving vimrc to ~/.vimrc"
-	$(COPY) vimrc ~/.vimrc
+	@mkdir -p ~/.config/nvim
+	@echo "Moving vimrc to ~/.config/nvim/init.vim"
+	$(COPY) vimrc $(VIMRC)
 
 $(DOTGITCONFIG): $(GITCONFIG)
 	@echo "Moving gitconfig to ~/.gitconfig"
@@ -37,7 +38,7 @@ $(BASHPROFILE): bash_profile
 
 $(GITCOMPLETION): 
 	@echo "Retrieving .git-completion"
-	@curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
+	@curl -s https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
 
 $(SCRIPTS) : $(SCRIPTDEPS)
 	$(COPY) -r $(SCRIPTDEPDIR)* $(SCRIPTDIR)
