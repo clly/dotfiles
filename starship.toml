@@ -2,7 +2,7 @@
 add_newline = true
 
 [directory]
-trunaction_length = 3
+truncation_length = 3
 truncation_symbol = "./"
 
 [time]
