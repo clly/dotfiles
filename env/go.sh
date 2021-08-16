@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [[ $SYSTEM != 'Darwin' ]]; then
     export GOROOT="/usr/go/go${GOVERSION}"

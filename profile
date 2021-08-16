@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then

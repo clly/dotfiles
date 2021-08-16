@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 export DOT_SOURCE=$HOME/.dot
 source $DOT_SOURCE/varz.sh
@@ -22,4 +22,4 @@ if [[ -f $HOME/.secret ]]; then
     source $HOME/.secret
 fi
 
-export PATH=$(dedupe_path)
+#export PATH=$(dedupe_path)

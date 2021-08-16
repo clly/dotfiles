@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 LOC=$DOT_SOURCE/env
 source $LOC/go.sh

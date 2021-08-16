@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 
-id=$(lsb_release --id)
+export SYSTEM=$(uname -s)
+if [[ $SYSTEM == "Darwin" ]]; then
+    ARCH="darwin-amd64"
+else
+    ARCH="linux-amd64"
+fi
+
+if [[ $SYSTEM =~ "linux*" ]]; then
+	id=$(lsb_release --id)
+fi
 
 case $id in
     *Ubuntu)
@@ -9,6 +18,6 @@ case $id in
         ;;
     *)
         echo "unknown os"
-        exit 1
+        export os="unknown"
         ;;
 esac

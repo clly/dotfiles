@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eof pipefail
+set -eEof pipefail
 source os.bash
 if [[ $os == 'Ubuntu' ]]; then
     curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/focal.gpg | sudo apt-key add -

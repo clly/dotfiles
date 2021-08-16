@@ -1,12 +1,7 @@
 #!/bin/bash
 
-export SYSTEM=$(uname -s)
-if [[ $SYSTEM == "Darwin" ]]; then
-    ARCH="darwin-amd64"
-else
-    ARCH="linux-amd64"
-fi
 
+source "${DOT_SOURCE}/os.bash"
 export GIT_EDITOR="vim"
 export GOVERSION="1.15.2.${ARCH}"
 export PROJECT_DIR="${HOME}/p"
