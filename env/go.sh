@@ -1,14 +1,18 @@
 #!/usr/bin/env bash
 
-if [[ $SYSTEM != 'Darwin' ]]; then
-    export GOROOT="/usr/go/go${GOVERSION}"
-else
-    export GOROOT=/usr/go/go$GOVERSION
+gobin=$(command -v go)
+if [[ -z $gobin && -z $(go env GOROOT) ]]; then
+    if [[ $SYSTEM != 'Darwin' ]]; then
+        export GOROOT="/usr/go/go${GOVERSION}"
+    else
+        export GOROOT=/usr/go/go$GOVERSION
+    fi
+
+    PATH=$GOROOT/bin:$PATH:$GOPATH/bin
+    export PATH
 fi
 export GOPATH=$HOME/go
-
-PATH=$GOROOT/bin:$PATH:$GOPATH/bin
-export PATH
+PATH=$PATH:$GOPATH/bin
 
 function goSwitch() {
     if [[ -z $1 ]]; then
