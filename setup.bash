@@ -6,7 +6,7 @@ if [[ $os == 'Ubuntu' ]]; then
 #    sudo add-apt-repository ppa:wireshark-dev/stable
     sudo apt-get update
     sudo apt-get upgrade -y
-    sudo apt-get install git docker.io
+    sudo apt-get install -y git docker.io tmux gnupg2 virtualbox-qt yubico-piv-tool libykpiv-dev libpcsclite-dev openssl libssl-dev curl apt-transport-https
 fi
 
 
@@ -19,9 +19,10 @@ ansible-playbook -i $HOME/.dot/setup_tasks/hosts $HOME/.dot/setup_tasks/local.ym
 EOF
 
 # install intellij
+echo "Installing intellij"
 if [[ ! -f /var/local/idea/bin/idea.sh ]]; then
-    mkdir /tmp/idea
-    curl -L https://download.jetbrains.com/idea/ideaIU-2019.1.tar.gz > /tmp/idea/ideaIU-2019.1.tar.gz
+    mkdir -p /tmp/idea
+    curl -L https://download.jetbrains.com/idea/ideaIU-2021.1.tar.gz > /tmp/idea/ideaIU-2021.1.tar.gz
     tar -C /tmp/idea -xvf /tmp/idea/*.tar.gz
     cd /tmp/idea/$(ls --hide *.tar.gz /tmp/idea)
     sudo rsync -av --progress * /var/local/idea/
@@ -31,13 +32,21 @@ else
 fi
 
 # install chrome
-cd /tmp
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo apt install -y --fix-broken ./google-chrome-stable_current_amd64.deb
-rm -fv ./google-chrome-stable_current_amd64.deb 
+echo "Install google chrome"
+if [ dpkg -l google-chrome-stable>/dev/null ]; then
+    cd /tmp
+    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    sudo apt install -y --fix-broken ./google-chrome-stable_current_amd64.deb
+    rm -fv ./google-chrome-stable_current_amd64.deb
+fi
+
+if [ dpkg -l keybase>/dev/null ]; then
+    curl --remote-name https://prerelease.keybase.io/keybase_amd64.deb
+    sudo apt install -y ./keybase_amd64.deb
+    run_keybase &
+fi
 
 # install brave
-sudo apt install -y apt-transport-https curl
 
 curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
 
@@ -63,9 +72,9 @@ curl -Lo ~/bin/kubectl https://storage.googleapis.com/kubernetes-release/release
   && chmod +x ~/bin/kubectl
 echo "Kubectl installed at ~/bin/kubectl"
 
-# install neovim init.vim
-
-# install ansible via docker
-
-
+# install rust
+echo $PWD
+bash rust-setup.sh -y
+source $HOME/.cargo/env
+cargo install starship
 
