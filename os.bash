@@ -7,7 +7,7 @@ else
     ARCH="linux-amd64"
 fi
 
-if [[ $SYSTEM =~ "linux*" ]]; then
+if [[ $SYSTEM =~ [Ll]inux* ]]; then
 	id=$(lsb_release --id)
 fi
 
