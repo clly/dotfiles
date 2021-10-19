@@ -2,14 +2,13 @@
 
 tools=( 
     github.com/shoenig/petrify
-    github.com/alecthomas/gometalinter
-    github.com/golang/dep/cmd/dep
     github.com/clly/vanity
     github.com/clly/percentile
     rsc.io/goversion
-    golang.org/x/vgo
     github.com/gojuno/minimock/cmd/minimock
     github.com/tomnomnom/gron
+    golang.org/x/tools/cmd/goimports
+    gophers.dev/cmds/envy
     )
 
 for i in "${tools[@]}"; do
