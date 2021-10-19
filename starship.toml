@@ -32,5 +32,5 @@ cherry_pick = "[🍒 PICKING](bold red)"
 
 [git_branch]
 symbol = "🌱 "
-truncation_length = 10
+truncation_length = 20
 truncation_symbol = ".."

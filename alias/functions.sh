@@ -127,6 +127,26 @@ pgo(){
     cd "${path[0]}"
 }
 
+wgo(){
+    local d=$1
+
+    if [[ -z $d ]]; then
+        echo "You need to specify a project name."
+        return 1
+    fi
+
+    # search for the project dir in the PROJECT_DIR
+    local path=( `find "${WPROJECT_DIR}" \( -type d -o -type l \) -iname "$d"  | awk '{print length, $0;}' | sort -n | awk '{print $2}'` )
+
+    if [ "$path" == "" ] || [ "${path[*]}" == "" ]; then
+        echo "Could not find a directory named $d in $PROJECT_DIR"
+        return 1
+    fi
+
+    # enter the first path found
+    cd "${path[0]}"
+}
+
 unseal() {
     unseal=$(envy exec dev-vault bash -c 'printenv UNSEAL|base64 -d|keybase pgp decrypt')
     curl -XPUT https://localhost:8200/v1/sys/unseal --data-binary @- <<<"{\"key\":\"$unseal\"}"
