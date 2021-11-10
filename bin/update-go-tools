@@ -9,6 +9,7 @@ tools=(
     github.com/tomnomnom/gron
     golang.org/x/tools/cmd/goimports
     gophers.dev/cmds/envy
+    github.com/hairyhenderson/gomplate
     )
 
 for i in "${tools[@]}"; do

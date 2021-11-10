@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-gobin=$(command -v go)
-if [[ -z $gobin && -z $(go env GOROOT) ]]; then
+gobin=$(type -P "go")
+if [[ -z $gobin ]]; then
     if [[ $SYSTEM != 'Darwin' ]]; then
         export GOROOT="/usr/go/go${GOVERSION}"
     else
@@ -11,6 +11,7 @@ if [[ -z $gobin && -z $(go env GOROOT) ]]; then
     PATH=$GOROOT/bin:$PATH:$GOPATH/bin
     export PATH
 fi
+
 export GOPATH=$HOME/go
 PATH=$PATH:$GOPATH/bin
 

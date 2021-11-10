@@ -12,11 +12,11 @@ fi
 
 sudo usermod -G docker -a $(id -un)
 mkdir -p git/clly
-git clone git@github.com:clly/dockerfiles.git git/clly/dockerfiles
-newgrp docker <<<EOF
-source git/clly/dockerfiles/ansible/scripts.sh
-ansible-playbook -i $HOME/.dot/setup_tasks/hosts $HOME/.dot/setup_tasks/local.yml -K
-EOF
+#git clone git@github.com:clly/dockerfiles.git git/clly/dockerfiles
+#newgrp docker #<<<EOF
+#source git/clly/dockerfiles/ansible/scripts.sh
+#ansible-playbook -i $HOME/.dot/setup_tasks/hosts $HOME/.dot/setup_tasks/local.yml -K
+#EOF
 
 # install intellij
 echo "Installing intellij"
