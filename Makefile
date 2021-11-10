@@ -1,6 +1,6 @@
 #############################
 #
-#	Makefile for McSquibbly's dotfiles
+#	Makefile for clly's dotfiles
 #
 #############################
 
