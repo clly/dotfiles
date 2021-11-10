@@ -19,6 +19,14 @@ TFENVTARGET=$(TFENVSCRIPTS:tfenv/%=%)
 
 COPY=cp
 
+ifneq ("$(wildcard .makefiles/*.mk)","")
+	include .makefiles/*.mk
+else
+    $(info "no makefiles to load")
+endif
+
+include makefiles/*.mk
+
 all: $(DOTGITCONFIG) $(VIMRC) $(BASHPROFILE) $(GITCOMPLETION) $(SCRIPTS)
 
 $(VIMRC): vimrc
