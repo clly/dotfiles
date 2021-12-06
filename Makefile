@@ -64,6 +64,9 @@ bin/kubectl:
 .PHONY: update-bins
 update-bins: bin/minikube bin/kubectl
 
+.PHONY: scripts
+scripts: $(SCRIPTS)
+
 .PHONY: terraform
 terraform: $(TFENVTARGET)
 
