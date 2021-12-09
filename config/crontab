@@ -1,2 +1,2 @@
 SHELL=/bin/bash
-* * * * * if [[ -f ~/bin/keys.bash ]]; then ~/bin/keys.bash > /tmp/keys.log; fi
+0,30 * * * * if [[ -f ~/bin/keys.bash ]]; then ~/bin/keys.bash > /tmp/keys.log; fi
