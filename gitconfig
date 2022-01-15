@@ -1,5 +1,7 @@
 [user]
     name = Connor Kelly
+    email = connor.r.kelly@gmail.com
+    signingkey = 588D34E7812BC0B7
 [color]
 	diff = auto
 	status = auto
@@ -28,3 +30,6 @@
 	renames = copies
 [merge]
 	stat = true
+[include]
+    path = ~/.secret-gitconfig
+    path = ~/.config/git/gitconfig
