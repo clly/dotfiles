@@ -1,6 +1,6 @@
 #!/bin/bash
 
-alias cover='go test -covermode=count -coverprofile=coverage.out --coverpkg=./... && go tool cover -html=coverage.out && rm coverage.out'
+alias cover='go test -covermode=count -coverprofile=coverage.out --coverpkg=./... ./... && go tool cover -html=coverage.out && rm coverage.out'
 godb() {
     set -x
     if [[ -z $1 ]]; then
@@ -50,16 +50,15 @@ installgo(){
         arch="linux-amd64"
     fi
 
-    if [[ -z $GOVERSION ]]; then
-        if [[ -z $v ]]; then
-            echo "You need to specify a version to install"
-            return 1
-        fi
+    if [[ -n $v ]]; then
         local goversion="go${v}.${arch}"
-    else
+    elif [[ -n $GOVERSION ]]; then
         local goversion="go${GOVERSION}"
+    else
+        echo "You need to specify a version to install"
+        return 1
     fi
-
+    echo "Installing version ${goversion}"
 
     local gp="/usr/go/"
     url="https://storage.googleapis.com/golang/${goversion}.tar.gz"
