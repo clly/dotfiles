@@ -15,3 +15,4 @@ alias fetch-root-servers='curl -o root.hints https://www.internic.net/domain/nam
 alias dockc='docker-compose'
 alias dexec='docker run --rm -it'
 alias gpullf='git pull --ff-only'
+alias vim=nvim
