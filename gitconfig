@@ -33,3 +33,5 @@
 [include]
     path = ~/.secret-gitconfig
     path = ~/.config/git/gitconfig
+[submodule]
+    recurse = true
