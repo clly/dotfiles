@@ -6,7 +6,7 @@ if [[ $os == 'Ubuntu' ]]; then
 #    sudo add-apt-repository ppa:wireshark-dev/stable
     sudo apt-get update
     sudo apt-get upgrade -y
-    sudo apt-get install -y git docker.io tmux gnupg2 virtualbox-qt yubico-piv-tool libykpiv-dev libpcsclite-dev openssl libssl-dev curl apt-transport-https shellcheck git-lfs
+    sudo apt-get install -y git docker.io tmux gnupg2 virtualbox-qt yubico-piv-tool libykpiv-dev libpcsclite-dev openssl libssl-dev curl apt-transport-https shellcheck git-lfs miller
 fi
 
 
