@@ -1,6 +1,6 @@
 CWD := $(abspath $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST))))))
-XDG_DATA_HOME ?= $(HOME)/.local/share
-AUTOLOAD := $(XDG_DATA_HOME)/nvim/site/autoload/
+XDG_DATA_HOME ?= $(HOME)/.config/
+AUTOLOAD := $(XDG_DATA_HOME)/nvim/autoload/
 PLUG := $(CWD)/../../.vim/autoload/plug.vim
 VENDOR := $(CWD)/../vendor/plug.vim
 
@@ -15,6 +15,6 @@ $(VENDOR): neovim/vendor-plug
 
 $(PLUG): $(VENDOR)
 	@mkdir -p $(AUTOLOAD)/
-	@echo cp $<
+	@cp $< $(AUTOLOAD)
 
 

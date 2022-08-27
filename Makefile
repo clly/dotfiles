@@ -49,8 +49,12 @@ $(GITCOMPLETION):
 	@curl -s https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
 
 $(SCRIPTS) : $(SCRIPTDEPS)
-	$(COPY) -r $(SCRIPTDEPDIR)* $(SCRIPTDIR)
-
+	if [ -f $(@:$(HOME)/%=%) ]; then \
+		$(COPY) $(@:$(HOME)/%=%) $@; \
+	fi
+#	for script in $?; do \
+# 	$(COPY) $$script $(SCRIPTDIR) ; \
+#	done
 
 bin/minikube:
 	@curl -sLo bin/minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64  && chmod +x bin/minikube
