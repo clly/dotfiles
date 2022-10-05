@@ -65,6 +65,7 @@ installgo(){
 
     if $(curl -s -I -m 5 -XHEAD $url|grep -q "200 "); then
         wget --quiet $url -O /tmp/go.tar.gz
+        rm -rf /tmp/go/
         tar -C /tmp -xf /tmp/go.tar.gz
         sudo mkdir -p "/usr/go/${goversion}"
         sudo rsync -a /tmp/go/ "/usr/go/${goversion}"
