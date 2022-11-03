@@ -24,3 +24,11 @@ autocmd FileType gitcommit set textwidth=72
 autocmd FileType gitcommit set colorcolumn=+1
 " In Git commit messages, also colour the 51st column (for titles)
 autocmd FileType gitcommit set colorcolumn+=51
+
+" Let's wrap markdown at 120
+autocmd FileType markdown set textwidth=120
+" Colour the 120st column so that we know when we hit our limit
+autocmd FileType markdown set colorcolumn=+1
+
+" Trim trailing whitespace on save
+autocmd BufWritePre * :%s/\s\+$//e
