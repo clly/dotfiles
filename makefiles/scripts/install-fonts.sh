@@ -6,16 +6,19 @@ if [[ -f lib.sh ]]; then
 fi
 
 function install-font() {
-    local FONT_SOURCE_DIR=../fonts
-    local FONT_DEST_DIR=~/.local/share/fonts
-    font=$1
-    family=$2
-    mkdir -p "${FONT_DEST_DIR}/${family}"
-    if [[ -f "${FONT_SOURCE_DIR}/${font}" ]]; then
-        cp "${FONT_SOURCE_DIR}/${font}" ~/.local/share/fonts/${family}/${font}
-    else
-        echo "${font} not found"
-    fi
+    (
+        cd $(dirname $0)
+        local FONT_SOURCE_DIR=../fonts
+        local FONT_DEST_DIR=~/.local/share/fonts
+        font=$1
+        family=$2
+        mkdir -p "${FONT_DEST_DIR}/${family}"
+        if [[ -f "${FONT_SOURCE_DIR}/${font}" ]]; then
+            cp "${FONT_SOURCE_DIR}/${font}" ~/.local/share/fonts/${family}/${font}
+        else
+            echo "${font} not found"
+        fi
+    )
 }
 
 install-font SourceCodePro-BlackIt.otf source-code-pro
@@ -34,3 +37,7 @@ install-font SourceCodePro-SemiboldIt.otf source-code-pro
 install-font SourceCodePro-Semibold.otf source-code-pro
 
 fc-cache -f -v
+(
+    cd $(dirname $0)
+    ./install-hack.sh v3.003
+)
