@@ -1,6 +1,7 @@
 #!/bin/bash
 
-alias cover='go test -covermode=count -coverprofile=coverage.out --coverpkg=./... ./... && go tool cover -html=coverage.out && rm coverage.out'
+alias cover='go test -covermode=count -coverprofile=coverage.out --coverpkg=./... && go tool cover -html=coverage.out && rm coverage.out'
+alias gm='go mod tidy && go mod vendor'
 godb() {
     set -x
     if [[ -z $1 ]]; then
