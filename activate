@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# source some tools we might want available first
+if [[ -f ~/.asdf/asdf.sh ]]; then
+    source ~/.asdf/asdf.sh
+fi
+
 export DOT_SOURCE=$HOME/.dot
 source $DOT_SOURCE/varz.sh
 source $DOT_SOURCE/env/activate
