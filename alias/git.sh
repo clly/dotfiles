@@ -6,5 +6,12 @@ function gmerged() {
     git for-each-ref \
         --format="%(if:notequals=main)%(refname:short)%(then)%(refname:short)%(end)" \
         refs/heads/ \
-        --merged 
+        --merged
+}
+
+function gnmerged() {
+    git for-each-ref \
+        --format="%(if:notequals=main)%(refname:short)%(then)%(refname:short)%(end)" \
+        refs/heads/ \
+        --no-merged
 }
