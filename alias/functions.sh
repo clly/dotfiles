@@ -94,7 +94,7 @@ dgo() {
         echo "You need to specify a docker project name."
         return 1
     fi
-    
+
     # search for the project dir in the PROJECT_DIR
     local path=( `find "${DOCKER_PROJECT_DIR}" \( -type d -o -type l \) -iname "$d"  | awk '{print length, $0;}' | sort -n | awk '{print $2}'` )
 
@@ -159,4 +159,10 @@ rvault() {
 
 compact_prompt() {
     export STARSHIP_CONFIG=~/.dot/starship-compact.toml
+}
+
+for-each() {
+    while IFS= read -r cmd; do
+        $(printf '%s %s\n' "${@}" "$cmd")
+    done < /dev/stdin
 }
