@@ -2,7 +2,7 @@ KEYS_SERVICE=~/.config/systemd/user/authorized_keys.service
 KEYS_TIMER=~/.config/systemd/user/authorized_keys.timer
 CWD := $(abspath $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST))))))
 
-.PHONY: keys/install
+.PHONY: keys/install ## install systemd auth_keys script
 keys/install: $(KEYS_SERVICE) $(KEYS_TIMER)
 	systemctl --user daemon-reload
 	systemctl --user enable authorized_keys.timer
@@ -11,7 +11,7 @@ keys/install: $(KEYS_SERVICE) $(KEYS_TIMER)
 	systemctl --user restart authorized_keys.timer
 
 .PHONY: keys/uninstall
-keys/uninstall:
+keys/uninstall: ## uninstall systemd keys sync
 	systemctl --user stop authorized_keys.timer
 	systemctl --user disable authorized_keys.timer
 	systemctl --user disable authorized_keys.service
@@ -23,9 +23,11 @@ keys/uninstall:
 $(KEYS_SERVICE): $(CWD)/../config/systemd/authorized_keys.service
 	# $< is the first prerequisite
 	# $@ is the filename of the target of the rule
+	mkdir -p $(dir $@)
 	cp $< $@
 	systemctl --user daemon-reload
 
 $(KEYS_TIMER): $(CWD)/../config/systemd/authorized_keys.timer
+	mkdir -p $(dir $@)
 	cp $< $@
 	systemctl --user daemon-reload

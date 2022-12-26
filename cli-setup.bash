@@ -6,12 +6,17 @@ if [[ $os == 'Ubuntu' ]]; then
     curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/focal.gpg | sudo apt-key add -
     curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/focal.list | sudo tee /etc/apt/sources.list.d/tailscale.list
 
+    # docker
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
     curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
     sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 
     sudo apt update
-    sudo apt install -y make neovim tailscale build-essential libssl-dev pkg-config nomad
+    sudo apt install -y make neovim tailscale build-essential libssl-dev pkg-config nomad docker-ce docker-ce-cli containerd.io shellcheck
     
+    sudo usermod -G docker -a $(id -un)
     sudo tailscale up
 fi
 

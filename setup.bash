@@ -9,7 +9,7 @@ if [[ $os == 'Ubuntu' ]]; then
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
     sudo apt-get update
     sudo apt-get upgrade -y
-    sudo apt-get install -y git docker.io tmux gnupg2 virtualbox-qt yubico-piv-tool libykpiv-dev libpcsclite-dev openssl libssl-dev curl apt-transport-https shellcheck git-lfs miller gh
+    sudo apt-get install -y git docker.io tmux gnupg2 virtualbox-qt yubico-piv-tool libykpiv-dev libpcsclite-dev openssl libssl-dev curl apt-transport-https git-lfs miller gh
 fi
 
 
