@@ -7,6 +7,10 @@ JAVA_HOME=/usr/java/default
 if [[ -d $HOME/.dot/bin ]]; then
     PATH=$PATH:$HOME/.dot/bin
 fi
+# lunar vim is installed here
+if [[ -d $HOME/.local/bin ]]; then
+    PATH=$PATH:$HOME/.local/bin
+fi
 
 PATH=$PATH:$JAVA_HOME/bin:$HOME/bin
 
