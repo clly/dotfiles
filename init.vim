@@ -32,3 +32,12 @@ autocmd FileType markdown set colorcolumn=+1
 
 " Trim trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
+
+call plug#begin()
+Plug 'lambdalisue/fern.vim'
+call plug#end()
+
+augroup my-fern-startup
+  autocmd! *
+  autocmd VimEnter * ++nested Fern ~/
+augroup END
