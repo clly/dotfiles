@@ -1,0 +1,8 @@
+Host *
+    ForwardAgent yes
+    ControlMaster auto
+    ControlPath ~/.ssh/control/%r@%h:%p
+
+Host github.com
+    IdentityFile ~/.ssh/fido_sk
+    User git
