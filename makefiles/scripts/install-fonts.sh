@@ -21,20 +21,26 @@ function install-font() {
     )
 }
 
-install-font SourceCodePro-BlackIt.otf source-code-pro
-install-font SourceCodePro-Black.otf source-code-pro
-install-font SourceCodePro-BoldIt.otf source-code-pro
-install-font SourceCodePro-Bold.otf source-code-pro
-install-font SourceCodePro-ExtraLightIt.otf source-code-pro
-install-font SourceCodePro-ExtraLight.otf source-code-pro
-install-font SourceCodePro-It.otf source-code-pro
-install-font SourceCodePro-LightIt.otf source-code-pro
-install-font SourceCodePro-Light.otf source-code-pro
-install-font SourceCodePro-MediumIt.otf source-code-pro
-install-font SourceCodePro-Medium.otf source-code-pro
-install-font SourceCodePro-Regular.otf source-code-pro
-install-font SourceCodePro-SemiboldIt.otf source-code-pro
-install-font SourceCodePro-Semibold.otf source-code-pro
+FONT_SOURCE_DIR=../fonts
+#install-font SourceCodePro-BlackIt.otf source-code-pro
+#install-font SourceCodePro-Black.otf source-code-pro
+#install-font SourceCodePro-BoldIt.otf source-code-pro
+#install-font SourceCodePro-Bold.otf source-code-pro
+#install-font SourceCodePro-ExtraLightIt.otf source-code-pro
+#install-font SourceCodePro-ExtraLight.otf source-code-pro
+#install-font SourceCodePro-It.otf source-code-pro
+#install-font SourceCodePro-LightIt.otf source-code-pro
+#install-font SourceCodePro-Light.otf source-code-pro
+#install-font SourceCodePro-MediumIt.otf source-code-pro
+#install-font SourceCodePro-Medium.otf source-code-pro
+#install-font SourceCodePro-Regular.otf source-code-pro
+#install-font SourceCodePro-SemiboldIt.otf source-code-pro
+#install-font SourceCodePro-Semibold.otf source-code-pro
+
+for i in $FONT_SOURCE_DIR/*; do 
+    # ## will remove the longest matching prefix
+    install-font ${i##../fonts/} go
+done
 
 fc-cache -f -v
 (
