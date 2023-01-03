@@ -1,0 +1,11 @@
+[Unit]
+Description=Script to merge authorized_keys file with github keys
+AssertPathExists=%h/bin/keys.bash
+
+[Service]
+ExecStart=%h/bin/keys.bash
+Type=oneshot
+EnvironmentFile=%h/.config/keys.env
+
+[Install]
+WantedBy=default.target

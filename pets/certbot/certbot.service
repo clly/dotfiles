@@ -1,0 +1,18 @@
+# pets: destfile=/root/.config/systemd/user/authorized_keys.service, owner=root, group=root, mode=0400
+# pets: package=certbot
+# pets: post=/bin/systemctl --user daemon-reload
+# pets: post=/bin/systemctl --user enable certbot.service
+# pets: post=touch ~/.config/certbot.env
+# pets: post=certbot register --register-unsafely-without-email --agree-tos --no-eff-email
+
+[Unit]
+Description=Script to merge authorized_keys file with github keys
+AssertPathExists=/usr/bin/certbot
+
+[Service]
+ExecStart=%h/bin/keys.bash
+Type=oneshot
+EnvironmentFile=%h/.config/keys.env
+
+[Install]
+WantedBy=default.target
