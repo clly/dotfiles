@@ -52,7 +52,7 @@ installgo(){
     fi
 
     if [[ -n $v ]]; then
-        local goversion="go${v}.${arch}"
+        local goversion="go${v}-${arch}"
     elif [[ -n $GOVERSION ]]; then
         local goversion="go${GOVERSION}"
     else
@@ -62,8 +62,9 @@ installgo(){
     echo "Installing version ${goversion}"
 
     local gp="/usr/go/"
-    url="https://storage.googleapis.com/golang/${goversion}.tar.gz"
+    url="https://dl.google.com/go/${goversion}.tar.gz"
 
+    echo "Checking for go at $url"
     if $(curl -s -I -m 5 -XHEAD $url|grep -q "200 "); then
         wget --quiet $url -O /tmp/go.tar.gz
         rm -rf /tmp/go/
