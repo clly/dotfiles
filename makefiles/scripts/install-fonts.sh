@@ -42,6 +42,15 @@ for i in $FONT_SOURCE_DIR/*; do
     install-font ${i##../fonts/} go
 done
 
+install-font intelone-mono-font-family-italic.otf intelone-mono
+install-font intelone-mono-font-family-medium.otf intelone-mono
+install-font intelone-mono-font-family-mediumitalic.otf intelone-mono
+install-font intelone-mono-font-family-regular.otf intelone-mono
+install-font intelone-mono-font-family-bold.otf intelone-mono
+install-font intelone-mono-font-family-bolditalic.otf intelone-mono
+install-font intelone-mono-font-family-light.otf intelone-mono
+install-font intelone-mono-font-family-lightitalic.otf intelone-mono
+
 fc-cache -f -v
 (
     cd $(dirname $0)
