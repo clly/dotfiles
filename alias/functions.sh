@@ -166,3 +166,10 @@ for-each() {
         $(printf '%s %s\n' "${@}" "$cmd")
     done < /dev/stdin
 }
+
+function envy-load() {
+  if [[ -z "${1}" ]]; then
+    echo -e "envy-load err: namespace is empty.\nUsage: envy-load <namespace>"
+  fi
+  source <(envy show --decrypt "${1}" | while read -r line; do echo "export ${line}"; done)
+}
