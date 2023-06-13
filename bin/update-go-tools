@@ -1,6 +1,6 @@
 #!/bin/bash
 
-tools=( 
+tools=(
     github.com/shoenig/petrify
     github.com/clly/vanity
     github.com/clly/percentile
@@ -8,7 +8,7 @@ tools=(
     github.com/gojuno/minimock/cmd/minimock
     github.com/tomnomnom/gron
     golang.org/x/tools/cmd/goimports
-    gophers.dev/cmds/envy
+    github.com/shoenig/envy
     github.com/hairyhenderson/gomplate
     )
 
