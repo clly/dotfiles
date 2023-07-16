@@ -9,7 +9,8 @@ tools=(
     github.com/tomnomnom/gron
     golang.org/x/tools/cmd/goimports
     github.com/shoenig/envy
-    github.com/hairyhenderson/gomplate
+    #github.com/hairyhenderson/gomplate
+    github.com/ema/pets
     )
 
 for i in "${tools[@]}"; do
