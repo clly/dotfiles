@@ -1,0 +1,3 @@
+
+echo "Reminder!"
+echo "* nix-shell -p <packages> for ad-hoc environments"

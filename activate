@@ -10,17 +10,13 @@ source $DOT_SOURCE/varz.sh
 source $DOT_SOURCE/env/activate
 source $DOT_SOURCE/alias/activate
 
-# Source secret things (maybe aws creds. maybe not. who's to know)
-if [[ -f $HOME/.secret ]]; then
-    source $HOME/.secret
-fi
-
 case $- in
     *i*) ;;
       *) return;;
 esac
 
 source $DOT_SOURCE/term/activate
+source $DOT_SOURCE/reminders
 
 # Source secret things (maybe aws creds. maybe not. who's to know)
 if [[ -f $HOME/.secret ]]; then
