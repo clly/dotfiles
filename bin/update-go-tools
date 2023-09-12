@@ -11,6 +11,7 @@ tools=(
     github.com/shoenig/envy
     #github.com/hairyhenderson/gomplate
     github.com/ema/pets
+    github.com/hashicorp/hcl/v2/cmd/hclfmt
     )
 
 for i in "${tools[@]}"; do
