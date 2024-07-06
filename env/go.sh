@@ -8,6 +8,7 @@ if [[ -z $gobin || ! -d $(go env GOROOT) ]]; then
 fi
 export GOPATH=$HOME/go
 PATH=$PATH:$GOPATH/bin
+GOPRIVATE=go.clly.me
 
 function goSwitch() {
     if [[ -z $1 ]]; then

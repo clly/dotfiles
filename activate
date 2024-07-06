@@ -5,6 +5,10 @@ if [[ -f ~/.asdf/asdf.sh ]]; then
     source ~/.asdf/asdf.sh
 fi
 
+devbox=$(command -v devbox)
+if [[ ! -z $devbox ]]; then
+    eval "$(devbox global shellenv)"
+fi
 export DOT_SOURCE=$HOME/.dot
 source $DOT_SOURCE/varz.sh
 source $DOT_SOURCE/env/activate

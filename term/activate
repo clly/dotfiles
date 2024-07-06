@@ -7,6 +7,7 @@ shopt -s histappend
 export HISTSIZE=1000
 export HISTFILESIZE=2000
 export PROMPT_COMMAND="history -a;history -r"
+export LS_COLORS=$LS_COLORS:'di=0;36:'
 
 source "${LOC}/completion.sh"
 source "${LOC}/git_prompt.sh"

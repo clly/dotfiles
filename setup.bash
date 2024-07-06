@@ -25,7 +25,7 @@ mkdir -p git/clly
 echo "Installing intellij"
 if [[ ! -f /var/local/idea/bin/idea.sh ]]; then
     mkdir -p /tmp/idea
-    curl -L https://download.jetbrains.com/idea/ideaIU-2021.1.tar.gz > /tmp/idea/ideaIU-2021.1.tar.gz
+    curl -L https://download.jetbrains.com/idea/ideaIU-2024.1.2.tar.gz > /tmp/idea/idea.tar.gz
     tar -C /tmp/idea -xvf /tmp/idea/*.tar.gz
     cd /tmp/idea/$(ls --hide *.tar.gz /tmp/idea)
     sudo rsync -av --progress * /var/local/idea/
@@ -41,12 +41,6 @@ if [ dpkg -l google-chrome-stable>/dev/null ]; then
     wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     sudo apt install -y --fix-broken ./google-chrome-stable_current_amd64.deb
     rm -fv ./google-chrome-stable_current_amd64.deb
-fi
-
-if [ dpkg -l keybase>/dev/null ]; then
-    curl --remote-name https://prerelease.keybase.io/keybase_amd64.deb
-    sudo apt install -y ./keybase_amd64.deb
-    run_keybase &
 fi
 
 # install brave
