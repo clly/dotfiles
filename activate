@@ -5,10 +5,7 @@ if [[ -f ~/.asdf/asdf.sh ]]; then
     source ~/.asdf/asdf.sh
 fi
 
-devbox=$(command -v devbox)
-if [[ ! -z $devbox ]]; then
-    eval "$(devbox global shellenv)"
-fi
+
 export DOT_SOURCE=$HOME/.dot
 source $DOT_SOURCE/varz.sh
 source $DOT_SOURCE/env/activate
@@ -28,3 +25,7 @@ if [[ -f $HOME/.secret ]]; then
 fi
 
 #export PATH=$(dedupe_path)
+devbox=$(command -v devbox)
+if [[ ! -z $devbox ]]; then
+    eval "$(devbox global shellenv)"
+fi

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -euo pipefail
+# set -x
 if [[ -f lib.sh ]]; then
     source lib.sh
 fi
@@ -21,7 +22,7 @@ function install-font() {
     )
 }
 
-FONT_SOURCE_DIR=../fonts
+FONT_SOURCE_DIR=$(dirname $0)/../fonts
 #install-font SourceCodePro-BlackIt.otf source-code-pro
 #install-font SourceCodePro-Black.otf source-code-pro
 #install-font SourceCodePro-BoldIt.otf source-code-pro
@@ -30,7 +31,7 @@ FONT_SOURCE_DIR=../fonts
 #install-font SourceCodePro-ExtraLight.otf source-code-pro
 #install-font SourceCodePro-It.otf source-code-pro
 #install-font SourceCodePro-LightIt.otf source-code-pro
-#install-font SourceCodePro-Light.otf source-code-pro
+# install-font SourceCodePro-Light.otf source-code-pro
 #install-font SourceCodePro-MediumIt.otf source-code-pro
 #install-font SourceCodePro-Medium.otf source-code-pro
 #install-font SourceCodePro-Regular.otf source-code-pro
@@ -39,17 +40,17 @@ FONT_SOURCE_DIR=../fonts
 
 for i in $FONT_SOURCE_DIR/*; do 
     # ## will remove the longest matching prefix
-    install-font ${i##../fonts/} go
+    echo install-font ${i##../fonts/} custom
 done
 
-install-font intelone-mono-font-family-italic.otf intelone-mono
-install-font intelone-mono-font-family-medium.otf intelone-mono
-install-font intelone-mono-font-family-mediumitalic.otf intelone-mono
-install-font intelone-mono-font-family-regular.otf intelone-mono
-install-font intelone-mono-font-family-bold.otf intelone-mono
-install-font intelone-mono-font-family-bolditalic.otf intelone-mono
-install-font intelone-mono-font-family-light.otf intelone-mono
-install-font intelone-mono-font-family-lightitalic.otf intelone-mono
+# install-font intelone-mono-font-family-italic.otf intelone-mono
+# install-font intelone-mono-font-family-medium.otf intelone-mono
+# install-font intelone-mono-font-family-mediumitalic.otf intelone-mono
+# install-font intelone-mono-font-family-regular.otf intelone-mono
+# install-font intelone-mono-font-family-bold.otf intelone-mono
+# install-font intelone-mono-font-family-bolditalic.otf intelone-mono
+# install-font intelone-mono-font-family-light.otf intelone-mono
+# install-font intelone-mono-font-family-lightitalic.otf intelone-mono
 
 fc-cache -f -v
 (
