@@ -11,11 +11,15 @@ function install-font() {
         cd $(dirname $0)
         local FONT_SOURCE_DIR=../fonts
         local FONT_DEST_DIR=~/.local/share/fonts
+        if [[ -d $FONT_DEST_DIR ]]; then
+            mkdir -p $FONT_DEST_DIR
+        fi
         font=$1
         family=$2
         mkdir -p "${FONT_DEST_DIR}/${family}"
-        if [[ -f "${FONT_SOURCE_DIR}/${font}" ]]; then
-            cp "${FONT_SOURCE_DIR}/${font}" ~/.local/share/fonts/${family}/${font}
+	    font_name=$(basename $font)
+        if [[ -f "${FONT_SOURCE_DIR}/${font_name}" ]]; then
+            cp "${FONT_SOURCE_DIR}/${font_name}" ~/.local/share/fonts/${family}/${font_name}
         else
             echo "${font} not found"
         fi
@@ -40,7 +44,7 @@ FONT_SOURCE_DIR=$(dirname $0)/../fonts
 
 for i in $FONT_SOURCE_DIR/*; do 
     # ## will remove the longest matching prefix
-    echo install-font ${i##../fonts/} custom
+    install-font ${i##../fonts/} custom
 done
 
 # install-font intelone-mono-font-family-italic.otf intelone-mono

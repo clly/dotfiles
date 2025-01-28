@@ -8,13 +8,22 @@ else
 fi
 
 if [[ $SYSTEM =~ [Ll]inux* ]]; then
-	id=$(lsb_release --id)
+    release=$(command -v lsb_release || true)
+    if [[ -n $release ]]; then
+        id=$(lsb_release --id)
+    elif [[ -f /etc/redhat-release ]]; then
+        id=$(cat /etc/redhat-release)
+    fi	
 fi
 
 case $id in
     *Ubuntu)
         export pkg=$(which apt)
         export os="Ubuntu"
+        ;;
+    *Fedora*)
+	export pkg=$(command -v rpm-ostree)
+        export os="Fedora"
         ;;
     *)
         echo "unknown os"
