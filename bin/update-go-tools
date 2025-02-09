@@ -1,7 +1,7 @@
 #!/bin/bash
 
 tools=(
-    github.com/shoenig/petrify
+    #github.com/shoenig/petrify
     github.com/clly/vanity
     github.com/clly/percentile
     rsc.io/goversion
@@ -12,6 +12,8 @@ tools=(
     #github.com/hairyhenderson/gomplate
     github.com/ema/pets
     github.com/hashicorp/hcl/v2/cmd/hclfmt
+    golang.org/x/tools/gopls
+    github.com/golangci/golangci-lint/cmd/golangci-lint
     )
 
 for i in "${tools[@]}"; do

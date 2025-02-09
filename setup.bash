@@ -12,7 +12,7 @@ if [[ $os == 'Ubuntu' ]]; then
     sudo apt-get upgrade -y
     sudo apt-get install -y git docker.io tmux gnupg2 virtualbox-qt yubico-piv-tool libykpiv-dev libpcsclite-dev openssl libssl-dev curl apt-transport-https git-lfs miller gh
     sudo usermod -G docker -a $(id -un)
-    
+
     # install intellij
     echo "Installing intellij"
     if [[ ! -f /var/local/idea/bin/idea.sh ]]; then
@@ -25,7 +25,7 @@ if [[ $os == 'Ubuntu' ]]; then
     else
         echo "idea is already installed"
     fi
-    
+
     # install chrome
     echo "Install google chrome"
     if [ dpkg -l google-chrome-stable>/dev/null ]; then
@@ -68,11 +68,12 @@ if [[ $os == "Fedora" ]]; then
     sudo cp 1password.repo /etc/yum.repos.d/
     sudo curl --output-dir "/etc/yum.repos.d/" -O https://pkgs.tailscale.com/stable/rhel/9/tailscale.repo
     rpm-ostree refresh-md
-    rpm-ostree install --idempotent tmux neovim gh gcc-c++ ghostty 1password-cli 1password tailscale treyscale
+    rpm-ostree install --idempotent tmux neovim gh gcc-c++ cmake ghostty 1password-cli 1password tailscale trayscale
     paks=(dev.zed.Zed com.jetbrains.IntelliJ-IDEA-Ultimate)
-    for pak in ${paks[@]}; do 
-        flatpak install flathub $pak
+    for pak in ${paks[@]}; do
+        flatpak install flathub -y $pak
     done
+    sudo rpm-ostree apply-live
 fi
 
 mkdir -p git/clly
@@ -82,5 +83,6 @@ echo $PWD
 bash rust-setup.sh -y
 source $HOME/.cargo/env
 cargo install starship
+cargo install helix
 
 
