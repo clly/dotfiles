@@ -67,11 +67,12 @@ if [[ $os == "Fedora" ]]; then
     sudo curl -O --output-dir "/etc/pki/rpm-gpg/" https://downloads.1password.com/linux/keys/1password.asc
     sudo cp 1password.repo /etc/yum.repos.d/
     sudo curl --output-dir "/etc/yum.repos.d/" -O https://pkgs.tailscale.com/stable/rhel/9/tailscale.repo
+    sudo rpm-ostree override remove firefox firefox-langpacks
     rpm-ostree refresh-md
-    rpm-ostree install --idempotent tmux neovim gh gcc-c++ cmake ghostty 1password-cli 1password tailscale trayscale
-    paks=(dev.zed.Zed com.jetbrains.IntelliJ-IDEA-Ultimate)
+    rpm-ostree install --idempotent tmux neovim gh gcc-c++ ghostty 1password-cli 1password tailscale treyscale
+    paks=(dev.zed.Zed com.jetbrains.IntelliJ-IDEA-Ultimate org.mozilla.firefox)
     for pak in ${paks[@]}; do
-        flatpak install flathub -y $pak
+        flatpak install flathub $pak
     done
     sudo rpm-ostree apply-live
 fi
