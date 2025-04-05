@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# pets: destfile=/home/connor/bin/keys.bash, mode=0755
+
 set -euo pipefail
 
 DEBUG=${DEBUG:=0}
@@ -20,19 +22,21 @@ ownership="managed-by-keys.bash"
 
 
 IFS=$'\n' 
-
-while IFS= read -r line; do
-    grep --quiet "$ownership" <<<"${line}" && continue
-    if [[ -n $line ]]; then 
-        echo "${line}" >> "${tmp_keys}"
-    fi
-done < "$KEYS_FILE"
+current_SHA=""
+if [[ -e "${KEYS_FILE}" ]]; then
+    current_SHA=$(sha256sum < $KEYS_FILE)
+    while IFS= read -r line; do
+        grep --quiet "$ownership" <<<"${line}" && continue
+        if [[ -n $line ]]; then 
+            echo "${line}" >> "${tmp_keys}"
+        fi
+    done < "$KEYS_FILE"
+fi
 
 for key in $github_keys; do
     echo "${key} $ownership" >> "${tmp_keys}"
 done
 
-current_SHA=$(sha256sum < $KEYS_FILE)
 new_SHA=$(sha256sum < "${tmp_keys}")
 
 if [[ $new_SHA != "${current_SHA}" ]]; then
