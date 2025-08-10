@@ -19,7 +19,6 @@ if [[ -f $HOME/.secret ]]; then
 fi
 
 #export PATH=$(dedupe_path)
-mise=$(command -v mise)
-if [[ ! -z $mise ]]; then
+if command -v mise >/dev/null 2>&1; then
     eval "$(mise activate bash)"
 fi
