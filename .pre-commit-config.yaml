@@ -1,0 +1,28 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: end-of-file-fixer
+        description: Ensures that a file is either empty or ends with one newline
+      - id: trailing-whitespace
+        description: Trims trailing whitespace
+        exclude: '\.md$'  # Allow trailing whitespace in markdown for line breaks
+      - id: check-executables-have-shebangs
+        description: Ensures that (non-binary) executables have a shebang
+      - id: check-shebang-scripts-are-executable
+        description: Ensures that (non-binary) files with a shebang are executable
+      - id: check-merge-conflict
+        description: Check for files that contain merge conflict strings
+      - id: check-added-large-files
+        description: Prevent giant files from being committed
+        args: ['--maxkb=1000']
+      - id: mixed-line-ending
+        description: Replaces or checks mixed line endings
+        args: ['--fix=lf']
+
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.10.0.1
+    hooks:
+      - id: shellcheck
+        description: Shell script analysis tool
+        args: [-e, SC1091]  # Disable "not following" warnings for sourced files
