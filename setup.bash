@@ -80,7 +80,6 @@ fi
 mkdir -p git/clly
 
 # install mise-en-place for tool version management
-echo "Setting up mise-en-place..."
 bash install-mise.sh
 
 # install rust
