@@ -79,11 +79,14 @@ fi
 
 mkdir -p git/clly
 
+# install mise-en-place for tool version management
+echo "Setting up mise-en-place..."
+bash install-mise.sh
+
 # install rust
 echo $PWD
 bash rust-setup.sh -y
 source $HOME/.cargo/env
 cargo install starship
-cargo install helix
 
 
