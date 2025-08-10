@@ -14,6 +14,9 @@ trap 'echo failure ${LINENO} "$BASH_COMMAND"' ERR
 
 
 KEYS_FILE=~/.ssh/authorized_keys
+KEYS_DIR=$(dirname $KEYS_FILE)
+mkdir -p $KEYS_DIR
+touch $KEYS_FILE
 github_keys=$(curl -s https://github.com/clly.keys)
 tmp_keys=$(mktemp -d -p ~/.ssh)/keys
 tmp_dir=${tmp_keys%%/keys}

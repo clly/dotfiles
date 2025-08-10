@@ -1,0 +1,12 @@
+[tools]
+helix = "latest"
+ripgrep = "latest"
+gh = "latest"
+go = "latest"
+# skopeo = "latest"  # Not available in mise registry - see TODO.md for alternatives
+
+[env]
+# Environment variables can be defined here if needed
+
+[alias]
+# Tool aliases can be defined here if needed
