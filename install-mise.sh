@@ -35,7 +35,6 @@ fi
 # Install configured tools from .mise.toml if it exists
 if [[ -f "$SCRIPT_DIR/.mise.toml" ]]; then
     echo "Installing tools from .mise.toml..."
-    cd "$SCRIPT_DIR"
     
     # Use the mise binary (either system or newly installed)
     MISE_BIN="mise"
@@ -43,9 +42,13 @@ if [[ -f "$SCRIPT_DIR/.mise.toml" ]]; then
         MISE_BIN="$HOME/.local/bin/mise"
     fi
     
-    # Trust the configuration before installing
-    "$MISE_BIN" trust
-    "$MISE_BIN" install
+    # Run mise commands in subshell to avoid changing parent directory
+    (
+        cd "$SCRIPT_DIR"
+        # Trust the configuration before installing
+        "$MISE_BIN" trust
+        "$MISE_BIN" install
+    )
     echo "✅ Tools installed successfully"
 else
     echo "⚠️  .mise.toml not found in $SCRIPT_DIR, skipping tool installation"
