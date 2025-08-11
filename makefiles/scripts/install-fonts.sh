@@ -11,7 +11,7 @@ function install-font() {
         cd $(dirname $0)
         local FONT_SOURCE_DIR=../fonts
         local FONT_DEST_DIR=~/.local/share/fonts
-        if [[ -d $FONT_DEST_DIR ]]; then
+        if [[ ! -d $FONT_DEST_DIR ]]; then
             mkdir -p $FONT_DEST_DIR
         fi
         font=$1
@@ -27,37 +27,63 @@ function install-font() {
 }
 
 FONT_SOURCE_DIR=$(dirname $0)/../fonts
-#install-font SourceCodePro-BlackIt.otf source-code-pro
-#install-font SourceCodePro-Black.otf source-code-pro
-#install-font SourceCodePro-BoldIt.otf source-code-pro
-#install-font SourceCodePro-Bold.otf source-code-pro
-#install-font SourceCodePro-ExtraLightIt.otf source-code-pro
-#install-font SourceCodePro-ExtraLight.otf source-code-pro
-#install-font SourceCodePro-It.otf source-code-pro
-#install-font SourceCodePro-LightIt.otf source-code-pro
-# install-font SourceCodePro-Light.otf source-code-pro
-#install-font SourceCodePro-MediumIt.otf source-code-pro
-#install-font SourceCodePro-Medium.otf source-code-pro
-#install-font SourceCodePro-Regular.otf source-code-pro
-#install-font SourceCodePro-SemiboldIt.otf source-code-pro
-#install-font SourceCodePro-Semibold.otf source-code-pro
 
-for i in $FONT_SOURCE_DIR/*; do 
-    # ## will remove the longest matching prefix
-    install-font ${i##../fonts/} custom
-done
+# Source Code Pro fonts
+install-font SourceCodePro-BlackItalic.ttf source-code-pro
+install-font SourceCodePro-Black.ttf source-code-pro
+install-font SourceCodePro-BoldItalic.ttf source-code-pro
+install-font SourceCodePro-Bold.ttf source-code-pro
+install-font SourceCodePro-ExtraLightItalic.ttf source-code-pro
+install-font SourceCodePro-ExtraLight.ttf source-code-pro
+install-font SourceCodePro-Italic.ttf source-code-pro
+install-font SourceCodePro-LightItalic.ttf source-code-pro
+install-font SourceCodePro-Light.ttf source-code-pro
+install-font SourceCodePro-MediumItalic.ttf source-code-pro
+install-font SourceCodePro-Medium.ttf source-code-pro
+install-font SourceCodePro-Regular.ttf source-code-pro
+install-font SourceCodePro-SemiBoldItalic.ttf source-code-pro
+install-font SourceCodePro-SemiBold.ttf source-code-pro
+install-font SourceCodePro-ExtraBoldItalic.ttf source-code-pro
+install-font SourceCodePro-ExtraBold.ttf source-code-pro
 
-# install-font intelone-mono-font-family-italic.otf intelone-mono
-# install-font intelone-mono-font-family-medium.otf intelone-mono
-# install-font intelone-mono-font-family-mediumitalic.otf intelone-mono
-# install-font intelone-mono-font-family-regular.otf intelone-mono
-# install-font intelone-mono-font-family-bold.otf intelone-mono
-# install-font intelone-mono-font-family-bolditalic.otf intelone-mono
-# install-font intelone-mono-font-family-light.otf intelone-mono
-# install-font intelone-mono-font-family-lightitalic.otf intelone-mono
+# Intel One Mono fonts
+install-font intelone-mono-font-family-italic.otf intelone-mono
+install-font intelone-mono-font-family-medium.otf intelone-mono
+install-font intelone-mono-font-family-mediumitalic.otf intelone-mono
+install-font intelone-mono-font-family-regular.otf intelone-mono
+install-font intelone-mono-font-family-bold.otf intelone-mono
+install-font intelone-mono-font-family-bolditalic.otf intelone-mono
+install-font intelone-mono-font-family-light.otf intelone-mono
+install-font intelone-mono-font-family-lightitalic.otf intelone-mono
+
+# Go fonts
+install-font Go-Bold-Italic.ttf go-fonts
+install-font Go-Bold.ttf go-fonts
+install-font Go-Italic.ttf go-fonts
+install-font Go-Medium-Italic.ttf go-fonts
+install-font Go-Medium.ttf go-fonts
+install-font Go-Mono-Bold-Italic.ttf go-fonts
+install-font Go-Mono-Bold.ttf go-fonts
+install-font Go-Mono-Italic.ttf go-fonts
+install-font Go-Mono.ttf go-fonts
+install-font Go-Regular.ttf go-fonts
+install-font Go-Smallcaps-Italic.ttf go-fonts
+install-font Go-Smallcaps.ttf go-fonts
+
+# Departure Mono fonts
+install-font DepartureMono-Regular.otf departure-mono
+install-font DepartureMono-Regular.woff departure-mono
+install-font DepartureMono-Regular.woff2 departure-mono
+
 
 fc-cache -f -v
-(
-    cd $(dirname $0)
-    ./install-hack.sh v3.003
-)
+
+# Install Hack font
+if [[ -f "$(dirname $0)/vendor/install-hack.sh" ]]; then
+    (
+        cd $(dirname $0)/vendor
+        ./install-hack.sh "latest"
+    )
+else
+    echo "Warning: install-hack.sh not found, skipping Hack font installation"
+fi
