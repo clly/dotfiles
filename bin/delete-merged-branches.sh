@@ -64,7 +64,7 @@ is_squash_merged() {
     # Check if the merge commit exists by looking for commits with the same changes
     # This works by comparing the tree hash of the branch tip with merge commits in main
     local branch_tree=$(git rev-parse "$branch^{tree}")
-    git rev-list --merges "$MAIN_BRANCH" | while read merge_commit; do
+    for merge_commit in $(git rev-list --merges "$MAIN_BRANCH"); do
         if [[ $(git rev-parse "$merge_commit^{tree}") == "$branch_tree" ]]; then
             return 0
         fi
@@ -81,15 +81,16 @@ echo "Checking for squash merged branches..."
 squash_merged_branches=""
 all_branches=$(git branch | grep -v "^\*" | grep -v "^[[:space:]]*$MAIN_BRANCH$" | sed 's/^[[:space:]]*//')
 
-for branch in $all_branches; do
+mapfile -t all_branches < <(echo "$all_branches")
+for branch in "${all_branches[@]}"; do
     if [[ "$merged_branches" != *"$branch"* ]] && is_squash_merged "$branch"; then
-        squash_merged_branches="$squash_merged_branches $branch"
+        squash_merged_branches="${squash_merged_branches}${squash_merged_branches:+$'\n'}$branch"
     fi
 done
 
 # Combine all branches to delete
-all_merged_branches="$merged_branches $squash_merged_branches"
-all_merged_branches=$(echo "$all_merged_branches" | tr ' ' '\n' | grep -v '^$' | sort -u || true)
+all_merged_branches="${merged_branches}${merged_branches:+$'\n'}$squash_merged_branches"
+all_merged_branches=$(echo -e "$all_merged_branches" | grep -v '^$' | sort -u || true)
 
 if [[ -z "$all_merged_branches" ]]; then
     echo "No merged branches found to delete."
@@ -122,7 +123,7 @@ echo "Deleting merged branches..."
 deleted_count=0
 failed_count=0
 
-for branch in $all_merged_branches; do
+while read -r branch; do
     if [[ "$branch" == "$current_branch" ]]; then
         echo "  Skipping $branch (current branch)"
         continue
@@ -136,7 +137,7 @@ for branch in $all_merged_branches; do
         echo "✗ (failed)"
         ((failed_count++))
     fi
-done
+done <<< "$all_merged_branches"
 
 echo ""
 echo "Summary:"
