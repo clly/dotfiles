@@ -11,7 +11,6 @@ case $- in
 esac
 
 source $DOT_SOURCE/term/activate
-source $DOT_SOURCE/reminders
 
 # Source secret things (maybe aws creds. maybe not. who's to know)
 if [[ -f $HOME/.secret ]]; then

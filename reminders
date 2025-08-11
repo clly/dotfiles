@@ -1,4 +1,0 @@
-
-echo "Reminder!"
-echo "* nix-shell -p <packages> for ad-hoc environments"
-echo "* nix profile install nixpkgs#<package> to install a package into the user profile"
