@@ -61,14 +61,21 @@ current_branch=$(git branch --show-current)
 # Function to check if a branch has been squash merged
 is_squash_merged() {
     local branch="$1"
-    # Check if the merge commit exists by looking for commits with the same changes
-    # This works by comparing the tree hash of the branch tip with merge commits in main
-    local branch_tree=$(git rev-parse "$branch^{tree}")
-    for merge_commit in $(git rev-list --merges "$MAIN_BRANCH"); do
-        if [[ $(git rev-parse "$merge_commit^{tree}") == "$branch_tree" ]]; then
-            return 0
-        fi
-    done
+    # A squash merge creates a new commit on the target branch with the same file tree
+    # as the source branch, but this new commit is not a "merge commit" (it only has one parent).
+    # To detect this, we check if any commit on the main branch has the same tree hash
+    # as the tip of the branch in question.
+    local branch_tree
+    branch_tree=$(git rev-parse "$branch^{tree}" 2>/dev/null) || return 1
+    
+    local merge_base
+    merge_base=$(git merge-base "$MAIN_BRANCH" "$branch" 2>/dev/null) || return 1
+
+    # Get trees of commits on main since the merge base and check if our branch's tree is among them.
+    if git log --pretty=%T "$merge_base..$MAIN_BRANCH" | grep -qFx "$branch_tree"; then
+        return 0
+    fi
+
     return 1
 }
 
@@ -78,19 +85,26 @@ merged_branches=$(git branch --merged "$MAIN_BRANCH" | grep -v "^\*" | grep -v "
 
 # Get branches that might be squash merged
 echo "Checking for squash merged branches..."
-squash_merged_branches=""
-all_branches=$(git branch | grep -v "^\*" | grep -v "^[[:space:]]*$MAIN_BRANCH$" | sed 's/^[[:space:]]*//')
+squash_merged_branches_list=()
+while IFS= read -r branch; do
+    if [[ -z "$branch" ]]; then continue; fi
 
-mapfile -t all_branches < <(echo "$all_branches")
-for branch in "${all_branches[@]}"; do
-    if [[ "$merged_branches" != *"$branch"* ]] && is_squash_merged "$branch"; then
-        squash_merged_branches="${squash_merged_branches}${squash_merged_branches:+$'\n'}$branch"
+    # Skip if it's already in the list of regularly merged branches.
+    # Use grep -F (fixed string) -x (whole line) for an exact match.
+    if echo "$merged_branches" | grep -qFx "$branch"; then
+        continue
     fi
-done
+
+    if is_squash_merged "$branch"; then
+        squash_merged_branches_list+=("$branch")
+    fi
+done < <(git branch | grep -v "^\*" | grep -v "^[[:space:]]*$MAIN_BRANCH$" | sed 's/^[[:space:]]*//')
+
+squash_merged_branches=$(printf "%s\n" "${squash_merged_branches_list[@]}")
 
 # Combine all branches to delete
 all_merged_branches="${merged_branches}${merged_branches:+$'\n'}$squash_merged_branches"
-all_merged_branches=$(echo -e "$all_merged_branches" | grep -v '^$' | sort -u || true)
+all_merged_branches=$(printf "%s\n" "$all_merged_branches" | grep -v '^$' | sort -u || true)
 
 if [[ -z "$all_merged_branches" ]]; then
     echo "No merged branches found to delete."
@@ -130,7 +144,13 @@ while read -r branch; do
     fi
     
     echo -n "  Deleting $branch... "
-    if git branch -d "$branch" > /dev/null 2>&1; then
+    local cmd_arg="-d"
+    if printf "%s\n" "$squash_merged_branches" | grep -qFx "$branch"; then
+        # For squash-merged branches, `git branch -d` will fail. Use -D.
+        cmd_arg="-D"
+    fi
+
+    if git branch "$cmd_arg" "$branch" > /dev/null 2>&1; then
         echo "✓"
         ((deleted_count++))
     else
