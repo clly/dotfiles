@@ -82,7 +82,7 @@ fc-cache -f -v
 if [[ -f "$(dirname $0)/vendor/install-hack.sh" ]]; then
     (
         cd $(dirname $0)/vendor
-        ./install-hack.sh v3.003
+        ./install-hack.sh "latest"
     )
 else
     echo "Warning: install-hack.sh not found, skipping Hack font installation"
