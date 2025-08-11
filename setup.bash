@@ -69,7 +69,7 @@ if [[ $os == "Fedora" ]]; then
     sudo curl --output-dir "/etc/yum.repos.d/" -O https://pkgs.tailscale.com/stable/rhel/9/tailscale.repo
     sudo rpm-ostree override remove firefox firefox-langpacks
     rpm-ostree refresh-md
-    rpm-ostree install --idempotent tmux neovim gh gcc-c++ ghostty 1password-cli 1password tailscale treyscale git-lfs
+    rpm-ostree install --idempotent tmux neovim gh gcc-c++ ghostty 1password-cli 1password tailscale treyscale git-lfs cmake
     paks=(dev.zed.Zed com.jetbrains.IntelliJ-IDEA-Ultimate org.mozilla.firefox)
     for pak in ${paks[@]}; do
         flatpak install flathub $pak
@@ -79,11 +79,13 @@ fi
 
 mkdir -p git/clly
 
+# install mise-en-place for tool version management
+bash install-mise.sh
+
 # install rust
 echo $PWD
 bash rust-setup.sh -y
 source $HOME/.cargo/env
 cargo install starship
-cargo install helix
 
 

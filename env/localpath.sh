@@ -13,7 +13,9 @@ if [[ -d $HOME/.local/bin ]]; then
 fi
 
 PATH=$PATH:$JAVA_HOME/bin:$HOME/bin
-
+if [[ -d $HOME/.bun/bin ]]; then
+    PATH="$HOME/.bun/bin:$PATH"
+fi
 
 export PATH
 
