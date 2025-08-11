@@ -4,6 +4,7 @@ ripgrep = "latest"
 gh = "latest"
 go = "latest"
 pre-commit = "latest"
+starship = "latest"
 # skopeo = "latest"  # See issue #7 for adding skopeo support
 
 [env]
