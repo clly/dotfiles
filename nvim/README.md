@@ -6,7 +6,7 @@ A modular Neovim configuration that transforms Vim into a basic IDE with file ex
 
 1. Copy the `nvim` directory to your Neovim config location:
    ```bash
-   cp -r nvim ~/.config/
+   cp -r nvim/.config/nvim ~/.config/
    ```
 
 2. Start Neovim - plugins will auto-install on first launch:
@@ -33,7 +33,7 @@ A modular Neovim configuration that transforms Vim into a basic IDE with file ex
 
 ### Window Navigation
 - `Ctrl+h` - Move to left pane
-- `Ctrl+j` - Move to bottom pane  
+- `Ctrl+j` - Move to bottom pane
 - `Ctrl+k` - Move to top pane
 - `Ctrl+l` - Move to right pane
 
@@ -62,7 +62,7 @@ A modular Neovim configuration that transforms Vim into a basic IDE with file ex
 ### Editing
 - `<Space>nh` - Clear search highlights
 - `J/K` (in visual mode) - Move selection up/down
-- `</>`  (in visual mode) - Indent left/right and stay in visual mode
+- `<` / `>`  (in visual mode) - Indent left/right and stay in visual mode
 
 ## Basic Usage
 

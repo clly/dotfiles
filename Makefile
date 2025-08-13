@@ -28,12 +28,15 @@ endif
 
 include makefiles/*.mk
 
-all: $(DOTGITCONFIG) $(NVIMCONFIG) $(BASHPROFILE) $(GITCOMPLETION) $(MISECONFIG) $(SCRIPTS)
+NVIMSENTINEL=~/.config/nvim/.installed
 
-$(NVIMCONFIG): nvim/.config/nvim
+all: $(DOTGITCONFIG) $(NVIMSENTINEL) $(BASHPROFILE) $(GITCOMPLETION) $(MISECONFIG) $(SCRIPTS)
+
+$(NVIMSENTINEL): nvim/.config/nvim/init.lua nvim/.config/nvim/lua/config/plugins.lua nvim/.config/nvim/lua/config/keymaps.lua
 	@echo "Installing Neovim configuration"
 	@mkdir -p ~/.config
 	$(COPY) -r nvim/.config/nvim ~/.config/
+	@touch $(NVIMSENTINEL)
 
 $(DOTGITCONFIG): $(GITCONFIG)
 	@echo "Moving gitconfig to ~/.gitconfig"
