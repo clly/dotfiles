@@ -8,8 +8,9 @@ BASHRC=bashrc
 BASHPROFILE=~/.bash_profile
 GITCONFIG=gitconfig
 DOTGITCONFIG=~/.gitconfig
-VIMRC=~/.config/nvim/init.vim
+NVIMCONFIG=~/.config/nvim
 GITCOMPLETION=~/.git-completion.bash
+MISECONFIG=~/.config/mise/config.toml
 SCRIPTDIR=~/bin/
 SCRIPTDEPDIR=bin/
 SCRIPTDEPS=$(wildcard bin/*)
@@ -27,12 +28,12 @@ endif
 
 include makefiles/*.mk
 
-all: $(DOTGITCONFIG) $(VIMRC) $(BASHPROFILE) $(GITCOMPLETION) $(SCRIPTS)
+all: $(DOTGITCONFIG) $(NVIMCONFIG) $(BASHPROFILE) $(GITCOMPLETION) $(MISECONFIG) $(SCRIPTS)
 
-$(VIMRC): vimrc
-	@mkdir -p ~/.config/nvim
-	@echo "Moving vimrc to ~/.config/nvim/init.vim"
-	$(COPY) vimrc $(VIMRC)
+$(NVIMCONFIG): nvim/.config/nvim
+	@echo "Installing Neovim configuration"
+	@mkdir -p ~/.config
+	$(COPY) -r nvim/.config/nvim ~/.config/
 
 $(DOTGITCONFIG): $(GITCONFIG)
 	@echo "Moving gitconfig to ~/.gitconfig"
@@ -40,13 +41,18 @@ $(DOTGITCONFIG): $(GITCONFIG)
 
 $(BASHPROFILE): bash_profile
 	@echo "Copying .bash_profile to home directory"
-	$(COPY) bash_profile $(BASHPROFILE)	
+	$(COPY) bash_profile $(BASHPROFILE)
 
 
 
-$(GITCOMPLETION): 
+$(GITCOMPLETION):
 	@echo "Retrieving .git-completion"
 	@curl -s https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
+
+$(MISECONFIG): .mise.toml
+	@echo "Installing mise configuration"
+	@mkdir -p ~/.config/mise
+	$(COPY) .mise.toml ~/.config/mise/config.toml
 
 $(SCRIPTS) : $(SCRIPTDEPS)
 	if [ -f $(@:$(HOME)/%=%) ]; then \
