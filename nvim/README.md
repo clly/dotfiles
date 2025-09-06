@@ -62,7 +62,7 @@ A modular Neovim configuration that transforms Vim into a basic IDE with file ex
 ### Editing
 - `<Space>nh` - Clear search highlights
 - `J/K` (in visual mode) - Move selection up/down
-- `<` / `>`  (in visual mode) - Indent left/right and stay in visual mode
+- `<` / `>` (in visual mode) - Indent left/right and stay in visual mode
 
 ## Basic Usage
 
@@ -139,3 +139,4 @@ Consider adding these features as you become comfortable with the base setup:
 - **Autocompletion** with nvim-cmp
 - **Debugging** with nvim-dap
 - **Terminal integration** with toggleterm
+

@@ -32,10 +32,10 @@ NVIMSENTINEL=~/.config/nvim/.installed
 
 all: $(DOTGITCONFIG) $(NVIMSENTINEL) $(BASHPROFILE) $(GITCOMPLETION) $(MISECONFIG) $(SCRIPTS)
 
-$(NVIMSENTINEL): nvim/.config/nvim/init.lua nvim/.config/nvim/lua/config/plugins.lua nvim/.config/nvim/lua/config/keymaps.lua
+$(NVIMSENTINEL): $(shell find nvim/.config/nvim -type f)
 	@echo "Installing Neovim configuration"
-	@mkdir -p ~/.config
-	$(COPY) -r nvim/.config/nvim ~/.config/
+	@mkdir -p $(NVIMCONFIG)
+	$(COPY) -r nvim/.config/nvim/. $(NVIMCONFIG)
 	@touch $(NVIMSENTINEL)
 
 $(DOTGITCONFIG): $(GITCONFIG)

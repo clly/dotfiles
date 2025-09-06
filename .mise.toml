@@ -7,6 +7,7 @@ pre-commit = "latest"
 starship = "latest"
 direnv = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
+editorconfig-checker = "latest"
 # skopeo = "latest"  # See issue #7 for adding skopeo support
 
 [env]
@@ -18,3 +19,7 @@ experimental = true
 
 [alias]
 # Tool aliases can be defined here if needed
+
+[tasks.lint]
+description = "Run editorconfig linting"
+run = "editorconfig-checker"

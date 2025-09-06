@@ -1,0 +1,21 @@
+name: Lint
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  editorconfig:
+    runs-on: ubuntu-latest
+    name: EditorConfig Lint
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Run EditorConfig Checker
+      uses: editorconfig-checker/action-editorconfig-checker@main
+      with:
+        version: latest
