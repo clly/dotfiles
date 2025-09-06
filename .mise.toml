@@ -6,6 +6,7 @@ go = "latest"
 pre-commit = "latest"
 starship = "latest"
 direnv = "latest"
+"go:golang.org/x/tools/gopls" = "latest"
 # skopeo = "latest"  # See issue #7 for adding skopeo support
 
 [env]
