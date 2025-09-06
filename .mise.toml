@@ -5,6 +5,7 @@ gh = "latest"
 go = "latest"
 pre-commit = "latest"
 starship = "latest"
+"go:golang.org/x/tools/gopls" = "latest"
 # skopeo = "latest"  # See issue #7 for adding skopeo support
 
 [env]
