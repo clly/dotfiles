@@ -17,6 +17,7 @@ filetype plugin indent on    " required
 autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
 autocmd FileType eyaml setlocal shiftwidth=2 tabstop=2
 autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
+autocmd FileType rust setlocal shiftwidth=4 tabstop=4
 
 " However, in Git commit messages, let’s make it 72 characters
 autocmd FileType gitcommit set textwidth=72
