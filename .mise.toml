@@ -22,4 +22,4 @@ experimental = true
 
 [tasks.lint]
 description = "Run editorconfig linting"
-run = "editorconfig-checker"
+run = "ec"
