@@ -10,12 +10,26 @@ jobs:
   editorconfig:
     runs-on: ubuntu-latest
     name: EditorConfig Lint
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      
+
     - name: Run EditorConfig Checker
       uses: editorconfig-checker/action-editorconfig-checker@main
       with:
         version: latest
+
+  mise-lint:
+    runs-on: ubuntu-latest
+    name: Mise Lint
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install mise
+      uses: jdx/mise-action@v2
+
+    - name: Run mise lint
+      run: mise run lint
