@@ -11,6 +11,9 @@ local M = {
 }
 
 function M.config()
+  -- LSP configuration with Mason integration
+  -- Note: rust_analyzer is excluded here as it's handled by rustaceanvim plugin
+  -- for enhanced Rust development experience
   local mason = require("mason")
   local mason_lspconfig = require("mason-lspconfig")
   local lspconfig = require("lspconfig")
@@ -29,7 +32,7 @@ function M.config()
   mason_lspconfig.setup({
     ensure_installed = {
       "lua_ls",
-      "rust_analyzer",
+      -- rust_analyzer excluded as it's handled by rustaceanvim plugin
       "pyright",
       "tsserver",
       "bashls",
@@ -40,24 +43,8 @@ function M.config()
     },
   })
 
-  -- Setup keymaps for LSP
-  local function lsp_keymaps(bufnr)
-    local opts = { noremap = true, silent = true, buffer = bufnr }
-    local keymap = vim.keymap.set
-
-    keymap("n", "gD", vim.lsp.buf.declaration, opts)
-    keymap("n", "gd", vim.lsp.buf.definition, opts)
-    keymap("n", "K", vim.lsp.buf.hover, opts)
-    keymap("n", "gi", vim.lsp.buf.implementation, opts)
-    keymap("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-    keymap("n", "gr", vim.lsp.buf.references, opts)
-    keymap("n", "[d", vim.diagnostic.goto_prev, opts)
-    keymap("n", "]d", vim.diagnostic.goto_next, opts)
-    keymap("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-    keymap("n", "<leader>f", function()
-      vim.lsp.buf.format({ async = true })
-    end, opts)
-  end
+  -- Import shared LSP keymaps and utilities
+  local lsp_keymaps = require("lsp.keymaps")
 
   -- Configure diagnostics
   vim.diagnostic.config({
@@ -94,19 +81,20 @@ function M.config()
   })
 
   -- Setup servers
-  local servers = require("lsp").servers
+  local lsp = require("lsp")
+  local servers = lsp.servers
 
   for _, server in pairs(servers) do
     local opts = {
       on_attach = function(client, bufnr)
-        lsp_keymaps(bufnr)
+        lsp_keymaps.setup_keymaps(bufnr)
       end,
-      capabilities = vim.lsp.protocol.make_client_capabilities(),
+      capabilities = lsp_keymaps.get_capabilities(),
     }
 
     -- Load server-specific configuration
     local has_custom_opts, server_custom_opts = pcall(require, "lsp." .. server)
-    if has_custom_opts then
+    if has_custom_opts and type(server_custom_opts) == "table" then
       opts = vim.tbl_deep_extend("force", opts, server_custom_opts)
     end
 

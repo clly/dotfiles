@@ -8,6 +8,37 @@ local M = {
   },
 }
 
+-- Setup Rust-specific keymaps
+-- <leader>rr: Run runnables (cargo run, tests, etc.)
+-- <leader>rt: Run testables (cargo test targets)
+-- <leader>rd: Run debuggables (debug targets)
+-- <leader>rm: Expand macro at cursor
+-- <leader>rc: Open Cargo.toml
+-- <leader>rp: Go to parent module
+local function setup_rust_keymaps(bufnr)
+  local opts = { noremap = true, silent = true, buffer = bufnr }
+  local keymap = vim.keymap.set
+
+  keymap("n", "<leader>rr", function()
+    vim.cmd.RustLsp("runnables")
+  end, opts)
+  keymap("n", "<leader>rt", function()
+    vim.cmd.RustLsp("testables")
+  end, opts)
+  keymap("n", "<leader>rd", function()
+    vim.cmd.RustLsp("debuggables")
+  end, opts)
+  keymap("n", "<leader>rm", function()
+    vim.cmd.RustLsp("expandMacro")
+  end, opts)
+  keymap("n", "<leader>rc", function()
+    vim.cmd.RustLsp("openCargo")
+  end, opts)
+  keymap("n", "<leader>rp", function()
+    vim.cmd.RustLsp("parentModule")
+  end, opts)
+end
+
 function M.config()
   vim.g.rustaceanvim = {
     -- Plugin configuration
@@ -40,47 +71,17 @@ function M.config()
     -- LSP configuration
     server = {
       on_attach = function(client, bufnr)
-        -- Set up keymaps
-        local opts = { noremap = true, silent = true, buffer = bufnr }
-        local keymap = vim.keymap.set
+        -- Set up common LSP keymaps
+        local lsp_keymaps = require("lsp.keymaps")
+        lsp_keymaps.setup_keymaps(bufnr)
 
-        -- Standard LSP keymaps
-        keymap("n", "gD", vim.lsp.buf.declaration, opts)
-        keymap("n", "gd", vim.lsp.buf.definition, opts)
-        keymap("n", "K", vim.lsp.buf.hover, opts)
-        keymap("n", "gi", vim.lsp.buf.implementation, opts)
-        keymap("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-        keymap("n", "gr", vim.lsp.buf.references, opts)
-        keymap("n", "[d", vim.diagnostic.goto_prev, opts)
-        keymap("n", "]d", vim.diagnostic.goto_next, opts)
-        keymap("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-        keymap("n", "<leader>f", function()
-          vim.lsp.buf.format({ async = true })
-        end, opts)
-
-        -- Rust-specific keymaps
-        keymap("n", "<leader>rr", function()
-          vim.cmd.RustLsp("runnables")
-        end, opts)
-        keymap("n", "<leader>rt", function()
-          vim.cmd.RustLsp("testables")
-        end, opts)
-        keymap("n", "<leader>rd", function()
-          vim.cmd.RustLsp("debuggables")
-        end, opts)
-        keymap("n", "<leader>rm", function()
-          vim.cmd.RustLsp("expandMacro")
-        end, opts)
-        keymap("n", "<leader>rc", function()
-          vim.cmd.RustLsp("openCargo")
-        end, opts)
-        keymap("n", "<leader>rp", function()
-          vim.cmd.RustLsp("parentModule")
-        end, opts)
+        -- Set up Rust-specific keymaps
+        setup_rust_keymaps(bufnr)
       end,
-      capabilities = vim.lsp.protocol.make_client_capabilities(),
+      capabilities = require("lsp.keymaps").get_capabilities(),
       settings = {
         ["rust-analyzer"] = {
+          -- Use cargo clippy for enhanced error checking and linting
           checkOnSave = {
             command = "cargo clippy",
           },
