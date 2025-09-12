@@ -44,3 +44,4 @@
 - All LSP features work automatically when rust-analyzer is running
 - Inlay hints can be toggled if they become distracting
 - Cargo commands run in the background with integrated output
+
