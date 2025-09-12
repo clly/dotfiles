@@ -25,3 +25,6 @@ vim.g.mapleader = " "
 -- Load configuration modules
 require("config.plugins")
 require("config.keymaps")
+
+-- Load custom plugins
+require("plugins.rust-keybindings-modal")
