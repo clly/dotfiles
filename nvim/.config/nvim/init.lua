@@ -23,6 +23,7 @@ vim.opt.updatetime = 50
 vim.g.mapleader = " "
 
 -- Load configuration modules
+require("options")
 require("config.plugins")
 require("config.keymaps")
 

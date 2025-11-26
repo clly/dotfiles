@@ -32,12 +32,15 @@ NVIMSENTINEL=$(HOME)/.config/nvim/.installed
 
 all: $(DOTGITCONFIG) $(NVIMSENTINEL) $(BASHPROFILE) $(GITCOMPLETION) $(MISECONFIG) $(SCRIPTS)
 
-$(NVIMSENTINEL): $(shell find nvim/.config/nvim -type f) $(shell find nvim -name "*.lua" -o -name "*.vim" -o -name "*.md")
+$(NVIMSENTINEL): $(shell find nvim -type f -name "*.lua" -o -name "*.vim" -o -name "*.md" -o -name "*.json")
 	@echo "Installing Neovim configuration"
 	@mkdir -p $(NVIMCONFIG)
 	$(COPY) -r nvim/.config/nvim/. $(NVIMCONFIG)
 	@mkdir -p $(NVIMCONFIG)/lua/plugins
 	@cp -f nvim/lua/plugins/*.lua $(NVIMCONFIG)/lua/plugins/ 2>/dev/null || true
+	@mkdir -p $(NVIMCONFIG)/lua/lsp
+	@cp -f nvim/lua/lsp/*.lua $(NVIMCONFIG)/lua/lsp/ 2>/dev/null || true
+	@cp -f nvim/lua/*.lua $(NVIMCONFIG)/lua/ 2>/dev/null || true
 	@find nvim -maxdepth 1 -name "*.vim" ! -name "init.vim" -exec cp {} $(NVIMCONFIG)/ \; 2>/dev/null || true
 	@cp -f nvim/*.md $(NVIMCONFIG)/../ 2>/dev/null || true
 	@touch $(NVIMSENTINEL)
