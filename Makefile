@@ -38,6 +38,9 @@ $(NVIMSENTINEL): $(shell find nvim/.config/nvim -type f) $(shell find nvim -name
 	$(COPY) -r nvim/.config/nvim/. $(NVIMCONFIG)
 	@mkdir -p $(NVIMCONFIG)/lua/plugins
 	@cp -f nvim/lua/plugins/*.lua $(NVIMCONFIG)/lua/plugins/ 2>/dev/null || true
+	@mkdir -p $(NVIMCONFIG)/lua/lsp
+	@cp -f nvim/lua/lsp/*.lua $(NVIMCONFIG)/lua/lsp/ 2>/dev/null || true
+	@cp -f nvim/lua/*.lua $(NVIMCONFIG)/lua/ 2>/dev/null || true
 	@find nvim -maxdepth 1 -name "*.vim" ! -name "init.vim" -exec cp {} $(NVIMCONFIG)/ \; 2>/dev/null || true
 	@cp -f nvim/*.md $(NVIMCONFIG)/../ 2>/dev/null || true
 	@touch $(NVIMSENTINEL)

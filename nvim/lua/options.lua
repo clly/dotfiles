@@ -25,3 +25,20 @@ vim.opt.iskeyword:append "-"                    -- treats words with `-` as sing
 vim.opt.formatoptions:remove { "c", "r", "o" }  -- This is a sequence of letters which describes how automatic formatting is to be done
 vim.opt.linebreak = true
 
+-- Markdown specific settings
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt_local.textwidth = 80
+    vim.opt_local.wrap = true
+    vim.opt_local.linebreak = true
+    vim.opt_local.formatoptions:append("t")
+    vim.opt_local.colorcolumn = "80"
+  end,
+})
+
+-- Command to rewrap all lines in the buffer
+vim.api.nvim_create_user_command("Rewrap", function()
+  vim.cmd("normal! ggVGgq")
+end, { desc = "Rewrap all lines in the buffer" })
+

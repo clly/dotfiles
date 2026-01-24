@@ -11,6 +11,8 @@ local M = {
 }
 
 function M.config()
+  vim.o.updatetime = 3000
+
   -- LSP configuration with Mason integration
   -- Note: rust_analyzer is excluded here as it's handled by rustaceanvim plugin
   -- for enhanced Rust development experience
@@ -40,6 +42,7 @@ function M.config()
       "yamlls",
       "cssls",
       "html",
+      "gopls",
     },
   })
 
@@ -88,6 +91,22 @@ function M.config()
     local opts = {
       on_attach = function(client, bufnr)
         lsp_keymaps.setup_keymaps(bufnr)
+        if client.supports_method("textDocument/hover") then
+          vim.api.nvim_create_autocmd("CursorHold", {
+            buffer = bufnr,
+            callback = function()
+              vim.lsp.buf.hover()
+            end,
+          })
+        end
+        if client.supports_method("textDocument/formatting") then
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            callback = function()
+              vim.lsp.buf.format({ async = true })
+            end,
+          })
+        end
       end,
       capabilities = lsp_keymaps.get_capabilities(),
     }
