@@ -5,13 +5,6 @@
 - As we work through our items, create an ADR documenting architectural decisions and why. Include other options that were discarded and why.
 - ADRs should go in an ADR directory in the root of the package we're working on
 - All ADRs should be numbered and when we change an ADR, create a new one with what we're changing, why and deprecate the old one
-<<<<<<< Updated upstream
-- Whenever we make changes and before we commit them, we want to make sure we
-  have or have created tests for those changes. We want to make sure that we
-  have 3 happy tests and 1 sad test and that we've run those tests. 
-- Before committing code, ensure we perform a code review. We want to focus on
-  simplicity and security.
-=======
 - Before committing code, ensure we perform a code review. We want to focus on
   simplicity and security.
 
@@ -30,4 +23,3 @@
 - **Test at the right layer**: Validation and Parsing tests shouldn't happen in
   handler tests.
 - **Don't test the framework**
->>>>>>> Stashed changes
