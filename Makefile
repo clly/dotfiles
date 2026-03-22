@@ -17,6 +17,10 @@ SCRIPTDEPS=$(wildcard bin/*)
 SCRIPTS=$(wildcard ~/bin/*)
 TFENVSCRIPTS=$(wildcard tfenv/bin/*)
 TFENVTARGET=$(TFENVSCRIPTS:tfenv/%=%)
+CLAUDE_SKILLS_DIR=$(HOME)/.claude/skills
+CODEX_SKILLS_DIR=$(HOME)/.codex/skills
+REPO_SHARED_SKILLS_DIR=$(CURDIR)/claude/skills
+REPO_CODEX_SKILLS_DIR=$(CURDIR)/codex/skills
 
 COPY=cp
 
@@ -101,3 +105,19 @@ $(TFENVTARGET): $(TFENVSCRIPTS)
 testvars:
 	@echo $(SCRIPTS)
 	@echo $(SCRIPTDEPS)
+
+.PHONY: ai-tools claude-skills codex-skills
+ai-tools: claude-skills codex-skills
+
+claude-skills:
+	@echo "Syncing Claude skills"
+	@rm -rf $(CLAUDE_SKILLS_DIR)
+	@mkdir -p $(dir $(CLAUDE_SKILLS_DIR))
+	@cp -R $(REPO_SHARED_SKILLS_DIR) $(CLAUDE_SKILLS_DIR)
+
+codex-skills:
+	@echo "Syncing Codex skills"
+	@mkdir -p $(CODEX_SKILLS_DIR)
+	@find $(CODEX_SKILLS_DIR) -mindepth 1 -maxdepth 1 ! -name .system -exec rm -rf {} +
+	@cp -R $(REPO_SHARED_SKILLS_DIR)/. $(CODEX_SKILLS_DIR)
+	@cp -R $(REPO_CODEX_SKILLS_DIR)/. $(CODEX_SKILLS_DIR)

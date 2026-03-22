@@ -1,13 +1,6 @@
 [tools]
-helix = "latest"
-ripgrep = "latest"
-gh = "latest"
-go = "latest"
 pre-commit = "latest"
-starship = "latest"
-direnv = "latest"
-"go:golang.org/x/tools/gopls" = "latest"
-editorconfig-checker = "3.4.0"
+editorconfig-checker = "latest"
 # skopeo = "latest"  # See issue #7 for adding skopeo support
 
 [env]
