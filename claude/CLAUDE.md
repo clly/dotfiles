@@ -11,8 +11,8 @@
 ### Unit Test Quality Rules
 
 - **No tautological tests**: Do not write tests that only assert mock return
-  values are passed through unchanges or that struct or class fields store what
-  you give them. Every test muse exercise real logic (branching, mapping,
+  values are passed through unchanged or that struct or class fields store what
+  you give them. Every test must exercise real logic (branching, mapping,
   validation, error handling)
 - Whenever we make changes and before we commit them, we want to make sure we
   have or have created tests for those changes. We want to make sure that we
