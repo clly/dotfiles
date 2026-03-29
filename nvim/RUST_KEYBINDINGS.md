@@ -1,5 +1,7 @@
 # Rust Keybindings Cheat Sheet
 
+**Leader Key: `<Space>`**
+
 ## LSP Navigation & Information
 | Key | Action | Description |
 |-----|--------|-------------|
